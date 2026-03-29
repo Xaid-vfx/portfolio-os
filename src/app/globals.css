@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --border: 214 32% 91%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+  }
+
+  .dark {
+    --background: 222 47% 8%;
+    --foreground: 210 40% 98%;
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+    --border: 217 33% 17%;
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.cmdk-input {
+  outline: none;
+}
+
+[cmdk-root] {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+[cmdk-item] {
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s;
+}
+
+[cmdk-item][data-selected="true"] {
+  background-color: hsl(var(--accent));
+}
+
+.graph-node {
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.graph-node:hover {
+  filter: brightness(1.2);
+}
+
+@keyframes typing {
+  from { width: 0 }
+}
+
+.animate-typing {
+  animation: typing 1.5s steps(20) forwards;
+}

@@ -1,0 +1,55 @@
+---
+title: "RAG Chatbot"
+description: "Enterprise-grade AI chatbot with RAG (Retrieval-Augmented Generation) architecture using LangChain, OpenAI, and Next.js. Provides intelligent responses by combining custom knowledge bases with large language models."
+tags: ["typescript", "ai", "langchain", "openai", "next.js", "rag", "llm"]
+status: "building"
+links: ["ai-crm"]
+date: "2024-01-15"
+---
+
+## Overview
+
+A production-ready RAG chatbot that retrieves relevant information from a custom knowledge base and generates contextually accurate responses using OpenAI's GPT models.
+
+## Architecture
+
+### Retrieval System
+- Document chunking and embedding generation
+- Vector similarity search using embeddings
+- Context window optimization for relevant results
+
+### Generation Pipeline
+- LangChain for orchestration
+- Custom prompts for domain-specific responses
+- Streaming responses for real-time user experience
+
+### Tech Stack
+- **Frontend**: Next.js, TypeScript, Tailwind CSS
+- **Backend**: Python, FastAPI
+- **AI**: OpenAI GPT-4, LangChain
+- **Vector DB**: Pinecone/Weaviate
+- **Deployment**: AWS
+
+## Key Features
+
+- Intelligent document retrieval
+- Context-aware response generation
+- Multi-turn conversation memory
+- Custom knowledge base integration
+- Streaming responses for better UX
+
+## Implementation Highlights
+
+```python
+# LangChain retrieval chain
+retriever = vectorstore.as_retriever(search_kwargs={"k": 3})
+chain = RetrievalQA.from_chain_type(
+    llm=llm,
+    chain_type="stuff",
+    retriever=retriever
+)
+```
+
+## Outcome
+
+Enterprise clients use this chatbot for customer support, internal knowledge bases, and documentation assistance—reducing response time by 80% while maintaining accuracy.

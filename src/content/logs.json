@@ -1,0 +1,46 @@
+{
+  "activities": [
+    {
+      "id": "1",
+      "type": "build",
+      "title": "Joined Code Parallel",
+      "description": "Started as Junior Software Developer, working on enterprise AI applications",
+      "timestamp": "2023-10-01T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "type": "build",
+      "title": "RAG Chatbot Development",
+      "description": "Building enterprise-grade AI chatbot with LangChain and OpenAI integration",
+      "timestamp": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": "3",
+      "type": "ship",
+      "title": "AI-Enhanced CRM Launch",
+      "description": "Deployed CRM with AI-powered lead scoring and smart search features",
+      "timestamp": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": "4",
+      "type": "build",
+      "title": "Smart Contract Audit Tool",
+      "description": "Building automated smart contract analysis tool using AI for security audits",
+      "timestamp": "2024-02-01T09:00:00Z"
+    },
+    {
+      "id": "5",
+      "type": "learn",
+      "title": "Mastered LangChain",
+      "description": "Deep dive into RAG architecture and LLM integration patterns",
+      "timestamp": "2024-02-05T11:00:00Z"
+    },
+    {
+      "id": "6",
+      "type": "ship",
+      "title": "E-commerce Platform",
+      "description": "Launched full-stack e-commerce solution with Stripe integration",
+      "timestamp": "2023-09-15T13:00:00Z"
+    }
+  ]
+}

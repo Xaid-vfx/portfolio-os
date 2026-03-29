@@ -1,0 +1,65 @@
+---
+title: "E-commerce Platform"
+description: "Full-stack e-commerce solution with product management, cart functionality, payment integration, and order tracking. Built with Next.js, Node.js, and MongoDB."
+tags: ["typescript", "nextjs", "node.js", "mongodb", "full-stack", "e-commerce"]
+status: "live"
+links: []
+date: "2023-09-01"
+---
+
+## Overview
+
+A complete e-commerce platform with admin dashboard, product management, shopping cart, and secure payment processing.
+
+## Features
+
+### Customer Features
+- Product browsing with search and filters
+- Shopping cart with persistence
+- Secure checkout with Stripe integration
+- Order tracking and history
+
+### Admin Dashboard
+- Product CRUD operations
+- Order management
+- Analytics dashboard
+- Inventory tracking
+
+## Tech Stack
+
+- **Frontend**: Next.js, React, TypeScript, Tailwind CSS
+- **Backend**: Node.js, Express.js
+- **Database**: MongoDB
+- **Payments**: Stripe API
+- **Deployment**: AWS, Docker
+
+## Key Implementation
+
+```typescript
+// Cart item with stock validation
+interface CartItem {
+  productId: string
+  quantity: number
+  price: number
+  stockAvailable: number
+}
+
+// Validate and update stock
+async function processOrder(items: CartItem[]) {
+  const session = await mongoose.startSession()
+  session.startTransaction()
+  try {
+    for (const item of items) {
+      await updateStock(item.productId, item.quantity, session)
+    }
+    await session.commitTransaction()
+  } catch {
+    await session.abortTransaction()
+    throw new Error('Order processing failed')
+  }
+}
+```
+
+## Outcome
+
+A production-ready e-commerce solution that handles concurrent orders and provides a seamless shopping experience.
