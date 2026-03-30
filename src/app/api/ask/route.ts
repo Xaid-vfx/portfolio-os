@@ -26,9 +26,8 @@ export async function POST(request: NextRequest) {
     }
 
     const groqApiKey = process.env.GROQ_API_KEY
-    const deepseekApiKey = process.env.DEEPSEEK_API_KEY
     const openrouterApiKey = process.env.OPENROUTER_API_KEY
-    if (!groqApiKey && !deepseekApiKey && !openrouterApiKey) {
+    if (!groqApiKey && !openrouterApiKey) {
       return NextResponse.json({ 
         error: 'API key not configured',
         response: "I'm not configured to answer questions right now."
@@ -63,7 +62,6 @@ About Zaid:
 Answer questions about his work, projects, or technical decisions. Be concise, direct, and technical. Don't make up information — only reference what's provided in the context.`
 
     let stream = null
-    let useDeepseek = false
 
     if (groqApiKey) {
       stream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -89,26 +87,6 @@ Answer questions about his work, projects, or technical decisions. Be concise, d
       }
     }
 
-    if (!stream?.ok && deepseekApiKey) {
-      useDeepseek = true
-      stream = await fetch('https://api.deepseek.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${deepseekApiKey}`,
-        },
-        body: JSON.stringify({
-          model: 'deepseek-chat',
-          messages: [
-            { role: 'system', content: systemPrompt },
-            { role: 'user', content: question }
-          ],
-          stream: true,
-          max_tokens: 1024,
-        }),
-      })
-    }
-
     if (!stream?.ok && openrouterApiKey) {
       stream = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -119,7 +97,7 @@ Answer questions about his work, projects, or technical decisions. Be concise, d
           'X-Title': 'Portfolio OS',
         },
         body: JSON.stringify({
-          model: 'grok/grok-2-1212',
+          model: 'deepseek/deepseek-chat',
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: question }
