@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Loader2, Sparkles } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 import { StreamingText } from '@/components/streaming-text'
 import projectSummaries from '@/content/project-summaries.json'
 
@@ -59,7 +60,13 @@ export function ExplainButton({ project }: ExplainButtonProps) {
             <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium">AI Summary</span>
           </div>
-          <StreamingText text={result} className="text-sm leading-relaxed" />
+          {isLoading ? (
+            <StreamingText text={result} className="text-sm leading-relaxed" />
+          ) : (
+            <div className="text-sm leading-relaxed">
+              <ReactMarkdown>{result}</ReactMarkdown>
+            </div>
+          )}
         </div>
       )}
     </div>
