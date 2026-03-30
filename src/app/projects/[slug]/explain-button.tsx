@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Loader2, FileText } from 'lucide-react'
+import { Loader2, Sparkles } from 'lucide-react'
 import { StreamingText } from '@/components/streaming-text'
 
 interface Project {
@@ -76,7 +76,7 @@ export function ExplainButton({ project }: ExplainButtonProps) {
           </>
         ) : (
           <>
-            <FileText className="w-4 h-4" />
+            <Sparkles className="w-4 h-4" />
             Summarize
           </>
         )}
@@ -85,7 +85,7 @@ export function ExplainButton({ project }: ExplainButtonProps) {
       {result && (
         <div className="mt-6 p-6 rounded-xl bg-accent/50 border border-border">
           <div className="flex items-center gap-2 mb-4">
-            <FileText className="w-4 h-4 text-primary" />
+            <Sparkles className="w-4 h-4 text-primary" />
             <span className="text-sm font-medium">AI Summary</span>
           </div>
           <StreamingText text={result} className="text-sm leading-relaxed" />
