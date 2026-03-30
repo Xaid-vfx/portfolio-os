@@ -34,7 +34,7 @@ export function ExplainButton({ project }: ExplainButtonProps) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          question: `Summarize the ${project.frontmatter.title} project. Include the problem, solution, tech stack, key features, and any metrics or results. Here's the content:\n\n${project.rawContent}`
+          question: `Give me a 2-3 line summary of the ${project.frontmatter.title} project. Here's the content:\n\n${project.rawContent}`
         }),
       })
 
