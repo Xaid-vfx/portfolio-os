@@ -21,7 +21,7 @@ export default function HomePage() {
       <section className="mb-16">
         <h1 className="text-2xl font-semibold tracking-tight mb-3">Mohd Zaid</h1>
         <p className="text-muted-foreground leading-relaxed max-w-xl">
-          I build things. Sometimes it's AI agents, sometimes it's real-time systems, sometimes it's just whatever idea won't leave my head at 2am.
+          I build things. Sometimes it&apos;s AI agents, sometimes it&apos;s real-time systems, sometimes it&apos;s just whatever idea won&apos;t leave my head at 2am.
           <br />
           Systems engineer by trade, vibe coder by choice. I ship, I break, I fix, I repeat.
         </p>
