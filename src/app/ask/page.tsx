@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { MessageCircle, Send, Loader2 } from 'lucide-react'
+import { Send, Loader2 } from 'lucide-react'
 import { VoiceInput } from '@/components/voice-input'
 import { StreamingText } from '@/components/streaming-text'
 
@@ -14,19 +14,15 @@ export default function AskPage() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: 'assistant',
-      content: "Hi! I'm your AI companion. Ask me anything about Mohd Zaid's projects, technical decisions, or approach to building software.",
+      content: "Hi. Ask me anything about Mohd Zaid's projects, technical decisions, or approach to building software.",
     },
   ])
   const [input, setInput] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }
-
   useEffect(() => {
-    scrollToBottom()
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -59,57 +55,53 @@ export default function AskPage() {
           if (done) break
           fullText += decoder.decode(value)
           setMessages((prev) => {
-            const newMessages = [...prev]
-            newMessages[newMessages.length - 1] = { role: 'assistant', content: fullText }
-            return newMessages
+            const next = [...prev]
+            next[next.length - 1] = { role: 'assistant', content: fullText }
+            return next
           })
         }
       }
-    } catch (error) {
+    } catch {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: 'I encountered an error. Please try again.' },
+        { role: 'assistant', content: 'Something went wrong. Please try again.' },
       ])
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleVoiceTranscript = (text: string) => {
-    setInput(text)
-  }
-
   return (
-    <div className="h-full flex flex-col p-4 md:p-6 lg:p-8 max-w-4xl mx-auto">
-      <div className="mb-4 md:mb-8">
-        <div className="flex items-center gap-2 md:gap-3 mb-3 md:mb-4">
-          <MessageCircle className="w-6 h-6 md:w-8 md:h-8 text-primary" />
-          <h1 className="text-2xl md:text-3xl font-bold">Ask AI</h1>
-        </div>
-        <p className="text-sm md:text-base text-muted-foreground">
-          Have questions about Mohd Zaid&apos;s work, projects, or technical approach?
+    <div className="max-w-3xl mx-auto px-6 py-12 flex flex-col h-full" style={{ minHeight: 'calc(100vh - 48px)' }}>
+      <div className="mb-8">
+        <h1 className="text-xl font-semibold mb-1">Ask AI</h1>
+        <p className="text-sm text-muted-foreground">
+          Ask about projects, technical decisions, or engineering approach.
         </p>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 md:space-y-6 mb-4 md:mb-6 min-h-0">
+      <div className="flex-1 overflow-y-auto space-y-6 mb-6 min-h-0">
         {messages.map((message, index) => (
-          <div
-            key={index}
-            className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-          >
+          <div key={index} className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            {message.role === 'assistant' && (
+              <div className="w-5 h-5 rounded bg-foreground flex items-center justify-center flex-shrink-0 mt-0.5 mr-3">
+                <span className="text-background text-[10px] font-bold leading-none">Z</span>
+              </div>
+            )}
             <div
-              className={`max-w-[85%] md:max-w-[80%] px-3 md:px-4 py-2.5 md:py-3 rounded-xl ${
+              className={`max-w-[80%] text-sm leading-relaxed ${
                 message.role === 'user'
-                  ? 'bg-primary text-primary-foreground'
-                  : 'bg-accent border border-border'
+                  ? 'bg-accent px-3 py-2 rounded-lg'
+                  : 'text-foreground'
               }`}
             >
               {message.role === 'assistant' && index === messages.length - 1 && isLoading ? (
-                <StreamingText text={message.content} className="text-xs md:text-sm leading-relaxed" />
+                <StreamingText
+                  text={message.content}
+                  className={`text-sm leading-relaxed ${!message.content ? 'streaming-cursor' : ''}`}
+                />
               ) : (
-                <p className="text-xs md:text-sm leading-relaxed whitespace-pre-wrap">
-                  {message.content}
-                </p>
+                <p className="whitespace-pre-wrap">{message.content}</p>
               )}
             </div>
           </div>
@@ -117,26 +109,22 @@ export default function AskPage() {
         <div ref={messagesEndRef} />
       </div>
 
-      <form onSubmit={handleSubmit} className="flex gap-2 md:gap-3">
-        <VoiceInput onTranscript={handleVoiceTranscript} />
+      <form onSubmit={handleSubmit} className="flex items-center gap-2 border-t border-border pt-4">
+        <VoiceInput onTranscript={(text) => setInput(text)} />
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Ask a question..."
-          className="flex-1 px-3 md:px-4 py-2.5 md:py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+          className="flex-1 px-3 py-2 rounded border border-border bg-background focus:outline-none focus:ring-1 focus:ring-border text-sm placeholder:text-muted-foreground"
           disabled={isLoading}
         />
         <button
           type="submit"
           disabled={isLoading || !input.trim()}
-          className="px-4 md:px-6 py-2.5 md:py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors font-medium"
+          className="p-2 rounded bg-foreground text-background disabled:opacity-40 transition-opacity hover:opacity-80"
         >
-          {isLoading ? (
-            <Loader2 className="w-4 h-4 md:w-5 md:h-5 animate-spin" />
-          ) : (
-            <Send className="w-4 h-4 md:w-5 md:h-5" />
-          )}
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
         </button>
       </form>
     </div>

@@ -3,44 +3,86 @@
     {
       "id": "1",
       "type": "build",
-      "title": "Joined Code Parallel",
-      "description": "Started as Junior Software Developer, working on enterprise AI applications",
-      "timestamp": "2023-10-01T10:00:00Z"
+      "title": "Multi-agent orchestration for Orqys",
+      "description": "Wiring up the DAG-based workflow engine to support parallel agent execution. Context and planning agents can now run concurrently.",
+      "timestamp": "2026-03-29T22:00:00Z"
     },
     {
       "id": "2",
-      "type": "build",
-      "title": "RAG Chatbot Development",
-      "description": "Building enterprise-grade AI chatbot with LangChain and OpenAI integration",
-      "timestamp": "2024-01-15T10:00:00Z"
+      "type": "learn",
+      "title": "LLM validation loop patterns",
+      "description": "Exploring self-correcting generation loops where the review agent can reject and trigger re-generation with refined constraints.",
+      "timestamp": "2026-03-28T18:30:00Z"
     },
     {
       "id": "3",
       "type": "ship",
-      "title": "AI-Enhanced CRM Launch",
-      "description": "Deployed CRM with AI-powered lead scoring and smart search features",
-      "timestamp": "2024-01-20T14:30:00Z"
+      "title": "Wispr Flow v2 — streaming rewrite",
+      "description": "Shipped streaming transcription mode. Audio chunks are now processed as they arrive instead of waiting for silence detection. Sub-300ms latency.",
+      "timestamp": "2026-03-26T14:00:00Z"
     },
     {
       "id": "4",
       "type": "build",
-      "title": "Smart Contract Audit Tool",
-      "description": "Building automated smart contract analysis tool using AI for security audits",
-      "timestamp": "2024-02-01T09:00:00Z"
+      "title": "Portfolio OS knowledge graph",
+      "description": "Rebuilt the D3 force graph with proper link validation. Dangling references no longer crash the simulation.",
+      "timestamp": "2026-03-25T20:00:00Z"
     },
     {
       "id": "5",
       "type": "learn",
-      "title": "Mastered LangChain",
-      "description": "Deep dive into RAG architecture and LLM integration patterns",
-      "timestamp": "2024-02-05T11:00:00Z"
+      "title": "Apple MLX inference optimizations",
+      "description": "INT4 quantization on MLX gives 3x speedup over FP16 with negligible quality loss for rewriting tasks. Unified memory is the key advantage.",
+      "timestamp": "2026-03-23T11:00:00Z"
     },
     {
       "id": "6",
       "type": "ship",
-      "title": "E-commerce Platform",
-      "description": "Launched full-stack e-commerce solution with Stripe integration",
-      "timestamp": "2023-09-15T13:00:00Z"
+      "title": "Synapse relevance scoring v2",
+      "description": "Composite scoring now weights interaction recency and relationship strength alongside semantic similarity. Much better results for 'who do I know' queries.",
+      "timestamp": "2026-03-20T16:00:00Z"
+    },
+    {
+      "id": "7",
+      "type": "build",
+      "title": "dbt pipeline recovery at Absinthe",
+      "description": "Fixed cascading pipeline failures across campaign event data. Root cause: schema drift in upstream ingestion affecting millions of rows.",
+      "timestamp": "2026-03-18T09:00:00Z"
+    },
+    {
+      "id": "8",
+      "type": "learn",
+      "title": "MCP protocol deep dive",
+      "description": "Model Context Protocol is the right abstraction for agent-tool integration. Much cleaner than custom function calling implementations.",
+      "timestamp": "2026-03-15T21:00:00Z"
+    },
+    {
+      "id": "9",
+      "type": "ship",
+      "title": "Infra cost optimization shipped",
+      "description": "Production deployment architecture redesign complete. $300/day → $500/month. Containerization + compute right-sizing did most of the work.",
+      "timestamp": "2026-03-10T13:00:00Z"
+    },
+    {
+      "id": "10",
+      "type": "build",
+      "title": "Identity verification system",
+      "description": "Building reputation-based verification using non-transferable NFTs. The interesting part is the scoring model for trust signals.",
+      "timestamp": "2026-03-05T17:00:00Z"
+    },
+    {
+      "id": "11",
+      "type": "ship",
+      "title": "Bloom reaches 1200 users",
+      "description": "Platform crossed 1,200 active users across 50+ apprenticeship programs. Onboarding completion rate holding at 70% after the last redesign.",
+      "timestamp": "2024-07-15T10:00:00Z"
+    },
+    {
+      "id": "12",
+      "type": "build",
+      "title": "Kafka pipeline at IG Group",
+      "description": "Distributed event processing pipeline live. 10k+ events/day with zero dropped messages. The cloud↔on-prem sync was the hardest part.",
+      "timestamp": "2025-03-20T14:00:00Z"
     }
   ]
 }

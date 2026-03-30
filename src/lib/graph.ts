@@ -72,11 +72,14 @@ export function buildGraphData(): GraphData {
         }
       }
 
-      links.push({
-        source: project.slug,
-        target: linkSlug,
-        type: 'project-link',
-      })
+      // Only create the link if the target node exists
+      if (nodeIds.has(linkSlug)) {
+        links.push({
+          source: project.slug,
+          target: linkSlug,
+          type: 'project-link',
+        })
+      }
     })
   })
 

@@ -1,9 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Sparkles, Loader2, RefreshCw } from 'lucide-react'
+import { Loader2, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
 
 export default function SuggestPage() {
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -13,12 +12,11 @@ export default function SuggestPage() {
   const fetchSuggestions = async () => {
     setIsLoading(true)
     setError(null)
-
     try {
       const response = await fetch('/api/suggest')
       const data = await response.json()
       setSuggestions(data.suggestions || [])
-    } catch (err) {
+    } catch {
       setError('Failed to fetch suggestions')
     } finally {
       setIsLoading(false)
@@ -30,65 +28,51 @@ export default function SuggestPage() {
   }, [])
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
-            <Sparkles className="w-8 h-8 text-primary" />
-            <h1 className="text-3xl font-bold">What to Build Next</h1>
-          </div>
-          <button
-            onClick={fetchSuggestions}
-            disabled={isLoading}
-            className="p-2 rounded-lg border border-border hover:bg-accent transition-colors"
-            title="Refresh suggestions"
-          >
-            <RefreshCw className={`w-4 h-4 ${isLoading ? 'animate-spin' : ''}`} />
-          </button>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-xl font-semibold mb-1">What to Build Next</h1>
+          <p className="text-sm text-muted-foreground">
+            AI-generated suggestions based on current projects and patterns.
+          </p>
         </div>
-        <p className="text-muted-foreground">
-          AI-powered suggestions for what to build next, based on current projects and patterns.
-        </p>
+        <button
+          onClick={fetchSuggestions}
+          disabled={isLoading}
+          className="p-1.5 rounded border border-border hover:bg-accent transition-colors text-muted-foreground"
+          title="Refresh"
+        >
+          <RefreshCw className={`w-3.5 h-3.5 ${isLoading ? 'animate-spin' : ''}`} />
+        </button>
       </div>
 
       {isLoading && suggestions.length === 0 ? (
-        <div className="flex items-center justify-center py-16">
-          <Loader2 className="w-8 h-8 animate-spin text-primary" />
+        <div className="flex items-center gap-2 py-12 text-sm text-muted-foreground">
+          <Loader2 className="w-4 h-4 animate-spin" />
+          Generating suggestions...
         </div>
       ) : error ? (
-        <div className="p-6 rounded-xl bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-900 text-red-600 dark:text-red-400">
-          {error}
-        </div>
+        <p className="text-sm text-muted-foreground">{error}</p>
       ) : (
-        <div className="space-y-4">
+        <div>
           {suggestions.map((suggestion, index) => (
-            <div
-              key={index}
-              className="p-6 rounded-xl border border-border bg-background hover:border-primary/20 transition-colors"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary font-medium">
-                  {index + 1}
-                </div>
-                <p className="flex-1 text-base leading-relaxed">{suggestion}</p>
-              </div>
+            <div key={index} className="flex items-start gap-4 py-4 border-b border-border">
+              <span className="text-xs text-muted-foreground tabular-nums mt-0.5 flex-shrink-0 w-4">
+                {index + 1}
+              </span>
+              <p className="text-sm leading-relaxed">{suggestion}</p>
             </div>
           ))}
         </div>
       )}
 
-      <div className="mt-12 p-6 rounded-xl bg-accent/50 border border-border">
-        <h2 className="font-semibold mb-4">Want to discuss?</h2>
-        <p className="text-sm text-muted-foreground mb-4">
-          These suggestions are AI-generated based on the current project state and memory.
-          For more personalized advice, let&apos;s have a conversation.
+      <div className="mt-12">
+        <p className="text-sm text-muted-foreground">
+          Want to explore further?{' '}
+          <Link href="/ask" className="text-foreground hover:underline">
+            Ask AI for context →
+          </Link>
         </p>
-        <Link
-          href="/ask"
-          className="inline-flex items-center gap-2 text-sm text-primary hover:underline"
-        >
-          Ask AI for more context <ArrowRight className="w-3 h-3" />
-        </Link>
       </div>
     </div>
   )

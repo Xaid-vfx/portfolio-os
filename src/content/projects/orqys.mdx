@@ -1,0 +1,44 @@
+---
+title: "Orqys"
+description: "AI-native engineering ops layer that converts tickets into production-ready pull requests via multi-agent orchestration."
+tags: ["ai", "agents", "python", "mcp", "infra"]
+status: "building"
+links: ["wispr-flow", "synapse"]
+date: "2026-03-01"
+---
+
+## Overview
+
+Orqys is an AI-native engineering operations layer. It takes a ticket—an issue, a task, a feature request—and orchestrates multiple LLM agents across the software development lifecycle to produce a production-ready pull request. Not a code suggestion. A deployable PR.
+
+## Problem
+
+The gap between "what needs to be built" and "code that does it" is still mostly filled by humans doing repetitive bridging work: reading context, understanding patterns, writing boilerplate, creating tests, writing PR descriptions. Most of this labor is compressible.
+
+## Approach
+
+The system decomposes the SDLC into discrete agent roles:
+
+- **Context Agent**: Retrieves relevant code, docs, and history from the repository using MCP-based tool integration
+- **Planning Agent**: Breaks the ticket into implementation steps with file-level specificity
+- **Code Agent**: Generates implementation across multiple files, respecting existing patterns and conventions
+- **Review Agent**: Validates output against the original intent, checks for regressions and edge cases
+- **PR Synthesis**: Assembles the final pull request with proper descriptions, labels, and linked issues
+
+Each agent operates on a shared context window but with scoped responsibilities. Orchestration is handled through a DAG-based workflow engine that supports parallel agent execution where dependencies allow.
+
+## Key Decisions
+
+- **Multi-agent over monolithic**: A single LLM call can't reliably handle the full ticket→PR pipeline. Decomposing into specialized agents with clear interfaces produces more consistent output.
+- **MCP for tool integration**: Using Model Context Protocol means the system can integrate with any codebase tooling (linters, type checkers, test runners) without custom adapters.
+- **DAG-based orchestration**: Agents don't always need to run sequentially. The planning and context retrieval phases can run in parallel, reducing total latency.
+
+## Challenges
+
+Context window management is the primary constraint. Real codebases have thousands of files—the system needs to retrieve just enough context for accurate code generation without blowing token limits. The retrieval strategy uses a combination of semantic search over embeddings and structural analysis (imports, call graphs) to build focused context windows.
+
+Another challenge: ensuring generated code actually compiles and passes tests. The review agent runs validation in a sandboxed environment before PR submission, but this adds latency and infrastructure complexity.
+
+## Outcome
+
+Orqys represents a bet on agent-native software development. The goal isn't to replace engineers—it's to compress the mechanical parts of the job so more time goes to design, architecture, and the genuinely hard decisions.

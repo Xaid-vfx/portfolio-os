@@ -1,0 +1,40 @@
+---
+title: "Neploy"
+description: "One-click deployment platform that abstracts infrastructure, CI/CD, and runtime config for early-stage builders."
+tags: ["infra", "docker", "aws", "node", "devtools"]
+status: "archived"
+links: ["orqys"]
+date: "2024-06-01"
+---
+
+## Overview
+
+Neploy is a developer-centric deployment platform. Push code, get a running application. No Dockerfiles to write, no CI/CD pipelines to configure, no infrastructure to provision. The platform handles build detection, containerization, and deployment to cloud infrastructure automatically.
+
+## Problem
+
+Deploying a side project shouldn't require DevOps knowledge. But the gap between "it works on my machine" and "it's running in production" is still absurdly wide. Most early-stage builders spend more time fighting deployment than building features.
+
+## Approach
+
+The system works in three phases:
+
+- **Detection**: Analyzes the repository to identify the framework, runtime, and build requirements. Generates a build plan without requiring a config file.
+- **Build**: Containerizes the application using optimized Dockerfiles generated from the build plan. Multi-stage builds keep images small.
+- **Deploy**: Provisions infrastructure on AWS (ECS for containers, ALB for routing, Route53 for DNS) and deploys the container with zero-downtime rolling updates.
+
+The entire flow is triggered by a Git push. No dashboard clicks, no config files, no manual steps.
+
+## Key Decisions
+
+- **Auto-detection over config files**: Requiring a `neploy.yml` would defeat the purpose. The platform infers everything it can from the codebase structure and only asks for what it can't determine.
+- **Docker as the universal packaging format**: Every application becomes a container, regardless of language or framework. This simplifies the deployment target to a single abstraction.
+- **AWS over building custom infra**: Building a cloud from scratch would be a multi-year effort. Using AWS primitives and abstracting them behind a clean API gives 90% of the value at 10% of the cost.
+
+## Challenges
+
+Build detection is harder than it looks. A Next.js app with a custom server, a Python ML service, and a static site all need different build strategies, but they might all live in the same repository. The detection system uses a scoring model across framework markers to determine the most likely build configuration.
+
+## Outcome
+
+Reduced deployment time from hours to seconds for early-stage projects. The platform validated the thesis that infrastructure complexity is the biggest barrier to shipping for solo developers and small teams.

@@ -3,14 +3,26 @@
 import * as React from 'react'
 import { CommandDialog, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from 'cmdk'
 import { useRouter } from 'next/navigation'
-import { Search, MessageCircle, Sparkles, Home, FolderKanban, FlaskConical, GitBranch, Activity, FileText } from 'lucide-react'
+import {
+  Home,
+  FolderOpen,
+  FlaskConical,
+  Briefcase,
+  GitBranch,
+  Search,
+  MessageCircle,
+  Sparkles,
+  FileText,
+  Activity,
+} from 'lucide-react'
 
 const pages = [
   { href: '/', label: 'Home', icon: Home },
-  { href: '/projects', label: 'Projects', icon: FolderKanban },
+  { href: '/projects', label: 'Projects', icon: FolderOpen },
   { href: '/experiments', label: 'Experiments', icon: FlaskConical },
+  { href: '/experience', label: 'Experience', icon: Briefcase },
   { href: '/graph', label: 'Knowledge Graph', icon: GitBranch },
-  { href: '/search', label: 'Search', icon: Search },
+  { href: '/search', label: 'Semantic Search', icon: Search },
   { href: '/ask', label: 'Ask AI', icon: MessageCircle },
   { href: '/suggest', label: 'Suggestions', icon: Sparkles },
   { href: '/now', label: 'Now', icon: Activity },
@@ -28,22 +40,29 @@ export function CommandMenu() {
         setOpen((open) => !open)
       }
     }
-
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
 
+  const navigate = (href: string) => {
+    router.push(href)
+    setOpen(false)
+  }
+
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh]">
-        <div className="relative w-full max-w-lg bg-background rounded-xl border border-border shadow-2xl overflow-hidden animate-in fade-in-0 zoom-in-95 duration-200">
+      <div className="fixed inset-0 z-50 flex items-start justify-center pt-[20vh] px-4">
+        <div
+          className="w-full max-w-md bg-background rounded-lg border border-border shadow-xl overflow-hidden"
+          style={{ animation: 'cmdIn 0.15s ease-out' }}
+        >
           <CommandInput
-            placeholder="Search pages, projects, or ask anything..."
-            className="w-full px-4 py-4 text-sm outline-none bg-transparent border-b border-border"
+            placeholder="Go to page..."
+            className="w-full px-4 py-3 text-sm outline-none bg-transparent border-b border-border placeholder:text-muted-foreground"
           />
-          <CommandList className="max-h-[300px] overflow-y-auto p-2">
-            <CommandEmpty className="py-6 text-center text-sm text-muted-foreground">
-              No results found.
+          <CommandList className="py-1.5 max-h-80 overflow-y-auto">
+            <CommandEmpty className="py-8 text-center text-sm text-muted-foreground">
+              No results.
             </CommandEmpty>
             <CommandGroup heading="Pages">
               {pages.map((page) => {
@@ -52,45 +71,47 @@ export function CommandMenu() {
                   <CommandItem
                     key={page.href}
                     value={page.label}
-                    onSelect={() => {
-                      router.push(page.href)
-                      setOpen(false)
-                    }}
-                    className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-accent data-[selected=true]:bg-accent"
+                    onSelect={() => navigate(page.href)}
+                    className="flex items-center gap-2.5 px-3 py-1.5 mx-1.5 rounded text-sm cursor-pointer text-foreground data-[selected=true]:bg-accent"
                   >
-                    <Icon className="w-4 h-4 text-muted-foreground" />
-                    <span className="text-sm">{page.label}</span>
+                    <Icon className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                    <span>{page.label}</span>
                   </CommandItem>
                 )
               })}
             </CommandGroup>
-            <CommandGroup heading="Actions">
+            <CommandGroup heading="AI">
               <CommandItem
-                value="Ask AI about my projects"
-                onSelect={() => {
-                  router.push('/ask')
-                  setOpen(false)
-                }}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-accent data-[selected=true]:bg-accent"
+                value="Ask AI about my work"
+                onSelect={() => navigate('/ask')}
+                className="flex items-center gap-2.5 px-3 py-1.5 mx-1.5 rounded text-sm cursor-pointer text-foreground data-[selected=true]:bg-accent"
               >
-                <MessageCircle className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">Ask AI about my work</span>
+                <MessageCircle className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                <span>Ask AI about my work</span>
               </CommandItem>
               <CommandItem
                 value="Get project suggestions"
-                onSelect={() => {
-                  router.push('/suggest')
-                  setOpen(false)
-                }}
-                className="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-accent data-[selected=true]:bg-accent"
+                onSelect={() => navigate('/suggest')}
+                className="flex items-center gap-2.5 px-3 py-1.5 mx-1.5 rounded text-sm cursor-pointer text-foreground data-[selected=true]:bg-accent"
               >
-                <Sparkles className="w-4 h-4 text-muted-foreground" />
-                <span className="text-sm">Get project suggestions</span>
+                <Sparkles className="w-3.5 h-3.5 text-muted-foreground flex-shrink-0" />
+                <span>Get project suggestions</span>
               </CommandItem>
             </CommandGroup>
           </CommandList>
+          <div className="px-4 py-2 border-t border-border flex items-center gap-4 text-xs text-muted-foreground">
+            <span><kbd className="font-mono">↑↓</kbd> navigate</span>
+            <span><kbd className="font-mono">↵</kbd> select</span>
+            <span><kbd className="font-mono">esc</kbd> close</span>
+          </div>
         </div>
       </div>
+      <style>{`
+        @keyframes cmdIn {
+          from { opacity: 0; transform: scale(0.97) translateY(-4px); }
+          to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+      `}</style>
     </CommandDialog>
   )
 }

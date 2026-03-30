@@ -8,12 +8,11 @@ import { CommandMenu } from '@/components/command-menu'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: 'Mohd Zaid | Portfolio OS',
-  description: 'A self-evolving personal operating system for software engineering',
+  title: 'Mohd Zaid',
+  description: 'Systems engineer building AI-native tooling, distributed backends, and developer infrastructure.',
   icons: {
     icon: '/favicon.ico',
   },
-  viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
 }
 
 export default function RootLayout({

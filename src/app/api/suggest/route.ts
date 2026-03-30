@@ -4,14 +4,15 @@ import { getAllProjects } from '@/lib/content'
 
 export async function GET() {
   try {
-    if (!process.env.OPENAI_API_KEY) {
+    const apiKey = process.env.GROQ_API_KEY
+    if (!apiKey) {
       return NextResponse.json({
         suggestions: [
-          "Build a real-time notification system with WebSockets",
-          "Create an AI-powered code review tool",
-          "Develop a personal knowledge management system",
-          "Build a distributed caching layer for your APIs",
-          "Create an automated testing framework for your projects"
+          "Build a real-time collaborative code review tool with AI-powered suggestions",
+          "Create a local-first LLM-powered CLI that generates infrastructure configs from natural language",
+          "Develop an MCP-based agent runtime that supports hot-swappable tool chains",
+          "Build a distributed task queue with built-in observability and dead letter handling",
+          "Create a semantic changelog generator that reads git diffs and writes release notes"
         ]
       })
     }
@@ -30,31 +31,31 @@ Known patterns:
 ${memory.patterns.join('\n')}
     `.trim()
 
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'llama-3.3-70b-versatile',
         messages: [
           {
             role: 'system',
-            content: `You are a strategic advisor helping Mohd Zaid decide what to build next. You think about leverage, compounding returns, and systems thinking.
+            content: `You are a strategic advisor helping Mohd Zaid decide what to build next. He's a systems engineer who builds AI-native tooling, distributed backends, and developer infrastructure.
 
 Consider:
-- Projects that build on existing work
-- High-impact tools that solve real problems
-- Opportunities for learning and growth
-- Projects that showcase full-stack capabilities
-- AI-native approaches
+- Projects that build on existing work and compound his skills
+- High-impact tools that solve real engineering problems
+- Opportunities at the intersection of AI and developer tooling
+- Systems-level projects, not feature-level ideas
+- Projects that would be impressive to strong technical teams
 
-Provide 5 specific, actionable suggestions that would make sense given the context provided. Be concise and practical.`
+Provide exactly 5 specific, actionable suggestions. Each should be a single concise sentence. No numbering, no bullets — just the raw suggestions, one per line.`
           },
           {
             role: 'user',
-            content: `Based on my current work and the insights about me, what should I build next? Give me 5 suggestions.\n\n${context}`
+            content: `Based on my current work and patterns, what should I build next?\n\n${context}`
           }
         ],
         max_tokens: 500,
@@ -62,13 +63,14 @@ Provide 5 specific, actionable suggestions that would make sense given the conte
     })
 
     if (!response.ok) {
-      throw new Error('OpenAI API error')
+      throw new Error('Groq API error')
     }
 
     const data = await response.json()
     const suggestions = data.choices?.[0]?.message?.content
       ?.split('\n')
-      .filter((s: string) => s.trim())
+      .map((s: string) => s.replace(/^\d+[\.\)]\s*/, '').trim())
+      .filter((s: string) => s.length > 10)
       .slice(0, 5) || []
 
     return NextResponse.json({ suggestions })
@@ -76,9 +78,9 @@ Provide 5 specific, actionable suggestions that would make sense given the conte
     console.error('Suggest error:', error)
     return NextResponse.json({ 
       suggestions: [
-        "Build a real-time notification system with WebSockets",
-        "Create an AI-powered code review tool",
-        "Develop a personal knowledge management system"
+        "Build a real-time collaborative code review tool with AI-powered suggestions",
+        "Create a local-first LLM-powered CLI that generates infrastructure configs from natural language",
+        "Develop an MCP-based agent runtime that supports hot-swappable tool chains"
       ]
     })
   }

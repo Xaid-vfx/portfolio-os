@@ -1,0 +1,40 @@
+---
+title: "Synapse"
+description: "Semantic search and relationship-mapping engine over personal networks. Query your contacts like a database."
+tags: ["ai", "nextjs", "node", "search", "full-stack"]
+status: "live"
+links: ["orqys"]
+date: "2026-01-20"
+---
+
+## Overview
+
+Synapse turns your unstructured social graph into a queryable knowledge base. Instead of scrolling through contacts or LinkedIn connections, you ask natural language questions: "Who do I know that's built fintech products?" or "Founders in my network working on AI infra."
+
+## Problem
+
+Your network is one of your most valuable assets, but it's stored as a flat list of names. There's no structure, no searchability, no way to surface relevant connections when you need them. Contact apps give you names and numbers. LinkedIn gives you a feed. Neither gives you insight.
+
+## Approach
+
+- **Ingestion**: Pulls contact data from multiple sources, normalizes it into a unified schema
+- **Embedding**: Each contact is embedded with metadata (role, company, interactions, shared context) using OpenAI embeddings
+- **Semantic search**: Natural language queries are embedded and matched against the contact corpus using cosine similarity
+- **Relevance scoring**: Contacts are ranked by a composite score combining semantic similarity, recency of interaction, and relationship strength signals
+- **Interface**: Next.js frontend with a search-first UI backed by Ollama for local query understanding
+
+## Key Decisions
+
+- **Composite scoring over pure semantic search**: Raw embedding similarity returns too many false positives. Adding interaction recency and relationship signals dramatically improves result quality.
+- **Ollama for query parsing**: Before hitting the embedding search, the query is parsed locally to extract intent and constraints. This prevents the "everything is similar" problem with naive embedding search.
+- **Rapid API for data enrichment**: Augmenting sparse contact data with public information improves embedding quality and search accuracy.
+
+## Challenges
+
+The cold start problem: most people's contact data is sparse. A name and email isn't enough to build a useful embedding. The system needs to infer context from communication patterns, shared events, and public information to build meaningful representations.
+
+Privacy was also a constant constraint. The system stores and processes personal relationship data—every design decision had to account for data minimization and user control over what gets indexed.
+
+## Outcome
+
+Turns a passive contact list into an active intelligence layer. The system surfaces connections you didn't know you had and makes introductions that would otherwise require hours of manual network scanning.

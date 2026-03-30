@@ -25,10 +25,11 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Question is required' }, { status: 400 })
     }
 
-    if (!process.env.OPENAI_API_KEY) {
+    const apiKey = process.env.GROQ_API_KEY
+    if (!apiKey) {
       return NextResponse.json({ 
-        error: 'OpenAI API key not configured',
-        response: "I'm not configured to answer questions right now. Please set up the OpenAI API key."
+        error: 'Groq API key not configured',
+        response: "I'm not configured to answer questions right now. Please set up the GROQ_API_KEY."
       }, { status: 500 })
     }
 
@@ -36,47 +37,50 @@ export async function POST(request: NextRequest) {
     const memory = getMemory()
 
     const context = projects.map(p => 
-      `- ${p.frontmatter.title}: ${p.frontmatter.description}\n  Tags: ${p.frontmatter.tags?.join(', ')}\n  Status: ${p.frontmatter.status}`
+      `- ${p.frontmatter.title}: ${p.frontmatter.description}\n  Tags: ${p.frontmatter.tags?.join(', ')}\n  Status: ${p.frontmatter.status}\n  Content: ${p.rawContent.slice(0, 300)}`
     ).join('\n\n')
 
     const memoryContext = memory.insights.length > 0 
       ? `Insights about the person:\n${memory.insights.map(i => `- ${i}`).join('\n')}\n\nPatterns:\n${memory.patterns.map(p => `- ${p}`).join('\n')}`
       : ''
 
-    const systemPrompt = `You are Mohd Zaid. You think in systems, optimize for leverage, and build infrastructure + AI tools.
+    const systemPrompt = `You are an AI assistant on Mohd Zaid's personal website. You answer questions about his work, projects, and engineering approach.
 
-About your projects:
+About his projects:
 ${context}
 
 ${memoryContext}
 
-Personality traits:
-- You think in systems, not features
-- You optimize for leverage and compounding returns
-- You prefer building platforms over point solutions
-- You're direct and practical
-- You ask clarifying questions when needed
+About Zaid:
+- Systems-oriented engineer — thinks in architectures, not features
+- Experience at Absinthe Labs (distributed backends, campaign platforms), IG Group (trading infrastructure, cloud migration), Bloom (co-founded multi-tenant platform), Graviti (logistics tracking)
+- Builds AI-native tooling, distributed systems, and developer infrastructure
+- Tech: TypeScript, Node.js, React, Next.js, Java, Spring Boot, AWS, Kafka, Docker, Terraform, PostgreSQL
+- Currently building Orqys (multi-agent engineering ops), Wispr Flow (local-first voice AI)
 
-Answer questions about your work, projects, or technical decisions. Be concise but informative.`
+Answer questions about his work, projects, or technical decisions. Be concise, direct, and technical. Don't make up information — only reference what's provided in the context.`
 
-    const stream = await fetch('https://api.openai.com/v1/chat/completions', {
+    const stream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'llama-3.3-70b-versatile',
         messages: [
           { role: 'system', content: systemPrompt },
           { role: 'user', content: question }
         ],
         stream: true,
+        max_tokens: 1024,
       }),
     })
 
     if (!stream.ok) {
-      throw new Error('OpenAI API error')
+      const errBody = await stream.text()
+      console.error('Groq API error:', stream.status, errBody)
+      throw new Error('Groq API error')
     }
 
     const encoder = new TextEncoder()

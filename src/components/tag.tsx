@@ -8,19 +8,21 @@ interface TagProps {
 }
 
 export function Tag({ tag, count, onClick, className }: TagProps) {
+  const Comp = onClick ? 'button' : 'span'
+
   return (
-    <button
+    <Comp
       onClick={onClick}
       className={cn(
-        'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-accent text-foreground transition-colors hover:bg-accent/80',
-        onClick && 'cursor-pointer',
+        'inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[11px] bg-accent text-muted-foreground transition-colors',
+        onClick && 'hover:bg-border hover:text-foreground cursor-pointer',
         className
       )}
     >
       {tag}
       {count !== undefined && (
-        <span className="text-[10px] text-muted-foreground">{count}</span>
+        <span className="text-[10px] opacity-60">{count}</span>
       )}
-    </button>
+    </Comp>
   )
 }

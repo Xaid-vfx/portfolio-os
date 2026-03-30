@@ -1,0 +1,37 @@
+---
+title: "Graviti Tracker"
+description: "Real-time order tracking platform for logistics. Live vehicle movement, geolocation sync, and cross-device document rendering."
+tags: ["nextjs", "node", "websockets", "maps", "full-stack"]
+status: "archived"
+links: ["bloom"]
+date: "2023-06-01"
+---
+
+## Overview
+
+A real-time order tracking platform for manufacturers and transporters. Live vehicle tracking on Google Maps, WebSocket-powered status updates, and a custom document viewer for delivery receipts—all designed for a logistics workflow where reliability and speed determine trust.
+
+## Problem
+
+In Indian logistics, order status lives in spreadsheets and phone calls. Manufacturers don't know where their shipments are. Transporters can't prove delivery without paper receipts. Every delay costs money and erodes trust between parties.
+
+## Approach
+
+- **Live tracking**: Google Maps API with geolocation services for real-time vehicle position updates, rendered on a shared dashboard accessible to both manufacturers and transporters
+- **WebSocket sync**: Bidirectional WebSocket connections keep order status synchronized across all connected clients. Status changes propagate in under 200ms.
+- **Backend APIs**: Node.js REST APIs synchronize live location data and order state across the transport workflow
+- **Document viewer**: Custom in-browser PDF and image viewer built with React and PDF.js for cross-device rendering of receipts and order confirmations
+
+## Key Decisions
+
+- **WebSockets over polling**: For logistics tracking, stale data is dangerous. WebSockets give real-time updates without the overhead of constant HTTP requests.
+- **PDF.js over native browser PDF**: Browser PDF rendering is inconsistent across devices, especially on mobile. A custom viewer with PDF.js gives predictable rendering and the ability to add annotations.
+- **Modular frontend architecture**: Built as composable Next.js components to support white-labeling for different logistics providers.
+
+## Challenges
+
+Geolocation accuracy in rural India is unreliable. GPS signals drop, cellular connectivity is intermittent, and devices report wildly inaccurate positions. The system needed a smoothing algorithm that could interpolate vehicle positions during signal gaps without showing impossible movements.
+
+## Outcome
+
+100+ manufacturers and transporters actively using the platform. Replaced manual phone-call-based tracking with a real-time dashboard, reducing status inquiry calls by 60% and providing auditable delivery confirmation.

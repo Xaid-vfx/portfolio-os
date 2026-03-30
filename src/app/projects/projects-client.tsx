@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { ProjectCard } from '@/components/project-card'
-import { Tag } from '@/components/tag'
+import { cn } from '@/lib/utils'
 import { Search, X } from 'lucide-react'
 
 interface Project {
@@ -27,78 +27,80 @@ export function ProjectsClient({ projects, allTags }: ProjectsClientProps) {
 
   const filteredProjects = projects.filter(project => {
     const matchesTag = !selectedTag || project.frontmatter.tags?.includes(selectedTag)
-    const matchesSearch = !searchQuery || 
+    const matchesSearch =
+      !searchQuery ||
       project.frontmatter.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.frontmatter.description.toLowerCase().includes(searchQuery.toLowerCase())
     return matchesTag && matchesSearch
   })
 
-  const tagCounts = allTags.map(tag => ({
-    tag,
-    count: projects.filter(p => p.frontmatter.tags?.includes(tag)).length,
-  }))
-
   return (
-    <div className="p-4 md:p-6 lg:p-8 max-w-6xl mx-auto">
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold mb-2 md:mb-4">Projects</h1>
-        <p className="text-sm md:text-base text-muted-foreground max-w-2xl">
-          A collection of projects showcasing systems thinking, AI integration, and full-stack development.
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="mb-8">
+        <h1 className="text-xl font-semibold mb-1">Projects</h1>
+        <p className="text-sm text-muted-foreground">
+          {projects.length} projects — systems thinking, AI integration, and full-stack development.
         </p>
       </div>
 
-      <div className="mb-6 md:mb-8">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            placeholder="Search projects..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-10 py-2.5 md:py-3 rounded-lg border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm md:text-base"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-1 hover:bg-accent rounded"
-            >
-              <X className="w-4 h-4 text-muted-foreground" />
-            </button>
-          )}
-        </div>
+      {/* Search */}
+      <div className="relative mb-4">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
+        <input
+          type="text"
+          placeholder="Filter projects..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full pl-9 pr-8 py-2 rounded border border-border bg-background focus:outline-none focus:ring-1 focus:ring-border text-sm placeholder:text-muted-foreground"
+        />
+        {searchQuery && (
+          <button
+            onClick={() => setSearchQuery('')}
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          >
+            <X className="w-3.5 h-3.5" />
+          </button>
+        )}
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-6 md:mb-8">
+      {/* Tag filters */}
+      <div className="flex flex-wrap gap-1.5 mb-8">
         <button
           onClick={() => setSelectedTag(null)}
-          className={`px-3 py-1.5 rounded-full text-xs md:text-sm transition-colors ${
-            !selectedTag 
-              ? 'bg-primary text-primary-foreground' 
-              : 'bg-accent hover:bg-accent/80'
-          }`}
+          className={cn(
+            'px-2.5 py-1 rounded text-xs transition-colors',
+            !selectedTag
+              ? 'bg-foreground text-background'
+              : 'bg-accent text-muted-foreground hover:text-foreground'
+          )}
         >
           All
         </button>
-        {tagCounts.map(({ tag, count }) => (
-          <Tag
+        {allTags.map((tag) => (
+          <button
             key={tag}
-            tag={tag}
-            count={count}
             onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-          />
+            className={cn(
+              'px-2.5 py-1 rounded text-xs transition-colors',
+              selectedTag === tag
+                ? 'bg-foreground text-background'
+                : 'bg-accent text-muted-foreground hover:text-foreground'
+            )}
+          >
+            {tag}
+          </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+      {/* Results */}
+      <div>
         {filteredProjects.map((project) => (
           <ProjectCard key={project.slug} project={project} />
         ))}
       </div>
 
       {filteredProjects.length === 0 && (
-        <div className="text-center py-12 text-muted-foreground">
-          No projects found matching your criteria.
-        </div>
+        <p className="text-sm text-muted-foreground py-8">No projects match your filter.</p>
       )}
     </div>
   )

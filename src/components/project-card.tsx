@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { Tag } from './tag'
 import { cn } from '@/lib/utils'
-import { ExternalLink, Github, ArrowRight } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 interface ProjectCardProps {
   project: {
@@ -17,13 +17,13 @@ interface ProjectCardProps {
   showFull?: boolean
 }
 
-const statusColors = {
-  building: 'bg-yellow-500/10 text-yellow-600 border-yellow-500/20',
-  live: 'bg-green-500/10 text-green-600 border-green-500/20',
-  archived: 'bg-gray-500/10 text-gray-600 border-gray-500/20',
+const statusDot = {
+  building: 'bg-amber-400',
+  live: 'bg-emerald-400',
+  archived: 'bg-neutral-300',
 }
 
-const statusLabels = {
+const statusLabel = {
   building: 'Building',
   live: 'Live',
   archived: 'Archived',
@@ -36,46 +36,35 @@ export function ProjectCard({ project, showFull = false }: ProjectCardProps) {
     <Link
       href={`/projects/${slug}`}
       className={cn(
-        'group block p-6 rounded-xl border border-border bg-background transition-all hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5',
+        'group block py-4 border-b border-border hover:bg-accent/40 transition-colors px-1 -mx-1',
         showFull && 'col-span-full'
       )}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <span
-            className={cn(
-              'px-2 py-0.5 rounded-full text-[10px] font-medium border',
-              statusColors[frontmatter.status]
-            )}
-          >
-            {statusLabels[frontmatter.status]}
-          </span>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center gap-2 mb-1.5">
+            <span className={cn('w-1.5 h-1.5 rounded-full flex-shrink-0', statusDot[frontmatter.status])} />
+            <h3 className="text-sm font-medium text-foreground group-hover:text-foreground truncate">
+              {frontmatter.title}
+            </h3>
+            <span className="text-xs text-muted-foreground hidden sm:inline">{statusLabel[frontmatter.status]}</span>
+          </div>
+          <p className="text-sm text-muted-foreground line-clamp-1 pl-3.5">
+            {frontmatter.description}
+          </p>
+          {frontmatter.tags && frontmatter.tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-2 pl-3.5">
+              {frontmatter.tags.slice(0, 4).map((tag) => (
+                <Tag key={tag} tag={tag} />
+              ))}
+              {frontmatter.tags.length > 4 && (
+                <span className="text-xs text-muted-foreground">+{frontmatter.tags.length - 4}</span>
+              )}
+            </div>
+          )}
         </div>
-        <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity -translate-x-2 group-hover:translate-x-0" />
+        <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/40 flex-shrink-0 mt-0.5 group-hover:text-muted-foreground transition-colors" />
       </div>
-
-      <h3 className="text-lg font-semibold mb-2 group-hover:text-primary transition-colors">
-        {frontmatter.title}
-      </h3>
-
-      <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-        {frontmatter.description}
-      </p>
-
-      <div className="flex flex-wrap gap-2">
-        {frontmatter.tags?.map((tag) => (
-          <Tag key={tag} tag={tag} />
-        ))}
-      </div>
-
-      {frontmatter.links && frontmatter.links.length > 0 && (
-        <div className="flex items-center gap-2 mt-4 pt-4 border-t border-border">
-          <Github className="w-4 h-4 text-muted-foreground" />
-          <span className="text-xs text-muted-foreground">
-            {frontmatter.links.length} linked project{frontmatter.links.length > 1 ? 's' : ''}
-          </span>
-        </div>
-      )}
     </Link>
   )
 }

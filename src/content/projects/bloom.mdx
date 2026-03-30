@@ -1,0 +1,39 @@
+---
+title: "Bloom"
+description: "Multi-tenant apprenticeship platform for African markets. Real-time collaboration, split payments, and fine-grained access control."
+tags: ["nextjs", "supabase", "postgres", "full-stack", "startup"]
+status: "live"
+links: ["neploy"]
+date: "2024-01-01"
+---
+
+## Overview
+
+Bloom is a multi-tenant platform connecting mentors and apprentices across African markets. It handles the full lifecycle: onboarding, program management, real-time communication, and automated payments. Co-founded and built from scratch as engineering lead.
+
+## Problem
+
+Apprenticeship programs in African markets run on WhatsApp groups and manual bank transfers. There's no structured way to manage cohorts, track progress, or handle payments at scale. Organizations running these programs spend more time on administration than mentorship.
+
+## Approach
+
+- **Multi-tenancy**: Supabase Row-Level Security (RLS) policies enforce data isolation at the database level. Each organization sees only its own data, with no application-level filtering required.
+- **Real-time messaging**: Built on Supabase Realtime and PostgreSQL LISTEN/NOTIFY for low-latency communication within cohorts. Messages are persisted and searchable.
+- **Payment automation**: Paystack Split Payments API handles apprentice-to-mentor payouts with automatic platform fee extraction, compliant with regional payment regulations.
+- **Access control**: PostgreSQL triggers enforce fine-grained permissions across mentor, apprentice, and admin roles. The permission model lives in the database, not the application.
+
+## Key Decisions
+
+- **RLS over application-level multi-tenancy**: Moving access control into the database eliminates an entire class of data isolation bugs. The tradeoff is more complex SQL policies, but the safety guarantee is worth it.
+- **Supabase over custom backend**: For a startup moving fast, Supabase provides auth, storage, realtime, and database in one stack. The lock-in risk was acceptable given the speed benefit.
+- **Split payments over manual invoicing**: Automating the payment flow removed the biggest operational bottleneck for partner organizations.
+
+## Challenges
+
+The hardest problem was onboarding. Users in the target market had varying levels of technical literacy. The onboarding flow went through 12 iterations to reach a 70% completion rate. Every step had to be simple enough that it didn't require a tutorial.
+
+Payment compliance across different African markets was also complex. Each country has different regulations around payment processing, fee structures, and reporting requirements.
+
+## Outcome
+
+1,200+ users across 50+ live apprenticeship programs. 15+ partner organizations onboarded within three months. The platform proved that structured apprenticeship delivery could work at scale in markets where informal training was the norm.

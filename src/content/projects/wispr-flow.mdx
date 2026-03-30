@@ -1,0 +1,45 @@
+---
+title: "Wispr Flow"
+description: "Local-first voice-to-text system for macOS with on-device LLM rewriting. No cloud, no latency."
+tags: ["ai", "python", "mlx", "local-first", "systems"]
+status: "live"
+links: ["orqys"]
+date: "2026-02-15"
+---
+
+## Overview
+
+Wispr Flow is a local-first voice-to-text system for macOS. It captures speech, transcribes it in real-time using Whisper, and optionally rewrites the output using a local LLM—all without touching the cloud.
+
+## Problem
+
+Cloud-based voice transcription has two problems: latency and privacy. Every utterance leaves your machine, hits a remote API, and comes back seconds later. For developers who think in code and write in prose, that round-trip kills flow state. And sending everything you say to an API is a non-starter for anything sensitive.
+
+## Approach
+
+The pipeline runs entirely on-device:
+
+- **Audio capture**: System-level microphone access with voice activity detection to segment speech
+- **Transcription**: Whisper model running on Apple MLX for hardware-accelerated inference on Apple Silicon
+- **LLM rewriting**: Dolphin3 via Ollama for optional grammar correction, reformatting, or style transformation
+- **Threading model**: Multi-threaded pipeline separating audio capture, transcription, and rewriting to prevent blocking
+
+The key insight was using Apple MLX instead of PyTorch for inference. MLX is optimized for Apple Silicon's unified memory architecture—it eliminates the CPU→GPU memory copy overhead that makes PyTorch slow on Mac.
+
+## Key Decisions
+
+- **MLX over PyTorch**: 3-4x faster inference on Apple Silicon. The tradeoff is less ecosystem support, but for a focused inference task, it's worth it.
+- **Ollama for local LLM**: Instead of building custom model serving, Ollama provides a clean API with model management. The abstraction cost is minimal.
+- **Multi-threaded over async**: Audio capture needs real-time guarantees. Python's asyncio doesn't provide that. Dedicated threads with proper synchronization primitives give predictable latency.
+
+## Challenges
+
+The hardest problem was achieving acceptable latency on consumer hardware. The full pipeline (audio → transcript → rewrite) needs to complete within 500ms to feel instant. This required:
+
+- Aggressive model quantization (INT4 for the rewriting LLM)
+- Streaming transcription (processing audio chunks as they arrive, not waiting for silence)
+- Careful thread synchronization to avoid contention
+
+## Outcome
+
+Sub-300ms end-to-end latency on an M1 MacBook. Fully private, fully offline. The system processes speech fast enough that the rewritten text appears almost immediately after you stop talking.

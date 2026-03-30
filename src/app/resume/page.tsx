@@ -1,130 +1,200 @@
-import { FileText, Download, Mail, Github, Linkedin, Phone, MapPin } from 'lucide-react'
+import { Download, Mail, Github, Globe, Phone, MapPin } from 'lucide-react'
 
 export default function ResumePage() {
   return (
-    <div className="p-4 md:p-6 lg:p-8 max-w-4xl mx-auto">
-      <div className="mb-6 md:mb-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          <FileText className="w-6 h-6 md:w-8 md:h-8 text-primary" />
-          <h1 className="text-2xl md:text-3xl font-bold">Resume</h1>
+    <div className="max-w-3xl mx-auto px-6 py-12">
+      <div className="mb-8 flex items-start justify-between">
+        <div>
+          <h1 className="text-xl font-semibold mb-1">Resume</h1>
+          <p className="text-sm text-muted-foreground">Mohd Zaid · Software Engineer</p>
         </div>
         <a
           href="/Zaid_CV-3.pdf"
           download
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded border border-border text-sm hover:bg-accent transition-colors"
         >
-          <Download className="w-4 h-4" />
+          <Download className="w-3.5 h-3.5" />
           Download PDF
         </a>
       </div>
 
-      <div className="space-y-6 md:space-y-8">
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
-            <div>
-              <h2 className="text-xl font-bold mb-1">Mohd Zaid</h2>
-              <p className="text-muted-foreground">Full Stack Developer</p>
-            </div>
-            <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
-              <a href="mailto:mohdzaidweb@gmail.com" className="flex items-center gap-1 hover:text-primary transition-colors">
-                <Mail className="w-4 h-4" />
-                mohdzaidweb@gmail.com
-              </a>
-              <a href="tel:+918799664122" className="flex items-center gap-1 hover:text-primary transition-colors">
-                <Phone className="w-4 h-4" />
-                +91 8799664122
-              </a>
-              <span className="flex items-center gap-1">
-                <MapPin className="w-4 h-4" />
-                Lucknow, India
-              </span>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-4 text-sm">
-            <a href="https://github.com/zaid-maker" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
-              <Github className="w-4 h-4" />
-              github.com/zaid-maker
-            </a>
-            <a href="https://linkedin.com/in/itszaid" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-primary transition-colors">
-              <Linkedin className="w-4 h-4" />
-              linkedin.com/in/itszaid
-            </a>
-          </div>
-        </section>
+      {/* Contact */}
+      <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted-foreground mb-10 pb-10 border-b border-border">
+        <a href="mailto:mohdzaid.work@gmail.com" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+          <Mail className="w-3.5 h-3.5" />
+          mohdzaid.work@gmail.com
+        </a>
+        <a href="tel:+917052360920" className="flex items-center gap-1.5 hover:text-foreground transition-colors">
+          <Phone className="w-3.5 h-3.5" />
+          +91 7052360920
+        </a>
+        <a
+          href="https://okzaid.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+        >
+          <Globe className="w-3.5 h-3.5" />
+          okzaid.com
+        </a>
+        <a
+          href="https://github.com/xaid-vfx"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-1.5 hover:text-foreground transition-colors"
+        >
+          <Github className="w-3.5 h-3.5" />
+          github.com/xaid-vfx
+        </a>
+      </div>
 
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <h2 className="text-lg font-semibold mb-4">Summary</h2>
-          <p className="text-muted-foreground leading-relaxed">
-            2+ years of experience in React, Next.js, TypeScript, Node.js, MongoDB, PostgreSQL, AWS, and Docker. 
-            Passionate about building scalable web applications with clean UI and excellent user experiences.
+      <div className="space-y-10">
+        {/* Summary */}
+        <section>
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">Summary</h2>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            Systems-oriented engineer with experience across distributed backends, cloud infrastructure, AI-native tooling, and full-stack product development.
+            Built and shipped production systems at scale — from campaign platforms processing millions of events to real-time trading infrastructure serving 350k+ users.
           </p>
         </section>
 
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <h2 className="text-lg font-semibold mb-4">Experience</h2>
+        {/* Experience */}
+        <section>
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">Experience</h2>
           <div className="space-y-6">
-            <div>
-              <div className="flex flex-col md:flex-row md:items-start justify-between mb-2">
-                <div>
-                  <h3 className="font-medium">Junior Software Developer</h3>
-                  <p className="text-sm text-muted-foreground">Code Parallel</p>
+            {[
+              {
+                role: 'Software Engineer',
+                company: 'Absinthe Labs',
+                location: 'NYC, US (Remote)',
+                period: 'Oct 2025 – Present',
+                highlights: [
+                  'Owned core campaign and incentives platform end-to-end — 100+ production features across distributed backends, identity verification, and high-throughput data pipelines',
+                  'Engineered distributed ingestion systems handling millions of submissions with concurrency-safe processing and rate limiting',
+                  'Reduced infrastructure costs from $300/day to $500/month (94% reduction) via containerization and deployment redesign',
+                  'Built AI-powered website generator and reputation-based identity verification using non-transferable NFTs',
+                ],
+              },
+              {
+                role: 'Full Stack Developer',
+                company: 'IG Group',
+                location: 'Bangalore, India',
+                period: 'Sept 2024 – Sept 2025',
+                highlights: [
+                  'Migrated on-prem Spring Boot trading systems to AWS using Terraform — 35% cost reduction, 99.99% uptime, sub-50ms latency for 350k+ traders',
+                  'Built distributed Kafka pipelines and WebSocket services for real-time trading data sync between cloud and on-prem systems',
+                  'Deployed Spring Boot microservices on Nomad processing 10k+ Kafka events daily with zero downtime',
+                ],
+              },
+              {
+                role: 'Co-founder & Engineering Lead',
+                company: 'Bloom',
+                location: 'London, UK (Remote)',
+                period: 'Dec 2023 – Aug 2024',
+                highlights: [
+                  'Co-founded multi-tenant apprenticeship platform for African markets — 1,200+ users, 50+ programs, 15+ partner organizations',
+                  'Designed multi-tenant backend with Supabase RLS, PostgreSQL triggers, and real-time messaging via LISTEN/NOTIFY',
+                  'Integrated Paystack Split Payments for automated mentor payouts with regional compliance',
+                ],
+              },
+              {
+                role: 'Full Stack Developer',
+                company: 'Graviti',
+                location: 'Remote',
+                period: 'Oct 2022 – Dec 2023',
+                highlights: [
+                  'Built real-time order tracking platform using Google Maps, WebSockets, and geolocation for 100+ manufacturers and transporters',
+                  'Developed backend REST APIs synchronizing live location and order status across distributed logistics workflows',
+                  'Engineered custom in-browser PDF/image viewer with React and PDF.js for cross-device document rendering',
+                ],
+              },
+            ].map((exp) => (
+              <div key={exp.company}>
+                <div className="flex items-start justify-between mb-1">
+                  <div>
+                    <p className="text-sm font-medium">{exp.role}</p>
+                    <p className="text-sm text-muted-foreground">{exp.company} · {exp.location}</p>
+                  </div>
+                  <span className="text-xs text-muted-foreground flex-shrink-0 mt-0.5">{exp.period}</span>
                 </div>
-                <span className="text-sm text-muted-foreground">Oct 2023 - Present</span>
+                <ul className="mt-3 space-y-1.5">
+                  {exp.highlights.map((item, i) => (
+                    <li key={i} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <span className="w-1 h-1 rounded-full bg-muted-foreground/50 mt-2 flex-shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
-              <ul className="space-y-1 mt-3 text-sm text-muted-foreground">
-                <li>• Worked on 3 major projects and 7+ internal tools</li>
-                <li>• Led AI integration into products using LangChain and OpenAI</li>
-                <li>• Built enterprise applications with Next.js, React, TypeScript, and Python</li>
-                <li>• Deployed solutions using AWS and Docker</li>
-              </ul>
-            </div>
+            ))}
           </div>
         </section>
 
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <h2 className="text-lg font-semibold mb-4">Skills</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-            <div>
-              <h3 className="text-sm font-medium mb-2">Frontend</h3>
-              <p className="text-sm text-muted-foreground">HTML, CSS, JavaScript, React.js, Next.js, Tailwind CSS, TypeScript</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium mb-2">Backend</h3>
-              <p className="text-sm text-muted-foreground">Node.js, Express.js, Python, FastAPI, PostgreSQL, MongoDB, Redis</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium mb-2">Tools & Cloud</h3>
-              <p className="text-sm text-muted-foreground">Docker, Git, AWS, Figma, Linear, Jira</p>
-            </div>
+        {/* Skills */}
+        <section>
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">Skills</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {[
+              {
+                label: 'Languages & Frameworks',
+                items: 'Java, Spring Boot, TypeScript, JavaScript, Python, React, Next.js, Node.js',
+              },
+              {
+                label: 'Infrastructure & Data',
+                items: 'AWS, Docker, Terraform, Kafka, Nomad, PostgreSQL, dbt, GraphQL',
+              },
+              {
+                label: 'Tools & Platforms',
+                items: 'Git, Supabase, Hasura, Vercel, Linux, CI/CD',
+              },
+            ].map(({ label, items }) => (
+              <div key={label}>
+                <p className="text-xs font-medium mb-1.5">{label}</p>
+                <p className="text-sm text-muted-foreground">{items}</p>
+              </div>
+            ))}
           </div>
         </section>
 
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <h2 className="text-lg font-semibold mb-4">Education</h2>
-          <div className="flex flex-col md:flex-row md:items-start justify-between">
+        {/* Education */}
+        <section>
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">Education</h2>
+          <div className="flex items-start justify-between">
             <div>
-              <h3 className="font-medium">B.Tech in Computer Science</h3>
-              <p className="text-sm text-muted-foreground">Babu Banarasi Das University</p>
+              <p className="text-sm font-medium">Bachelor of Engineering in Computer Science</p>
+              <p className="text-sm text-muted-foreground">Nitte Meenakshi Institute of Technology, Bangalore</p>
             </div>
-            <span className="text-sm text-muted-foreground">2019 - 2023 | 76%</span>
+            <span className="text-xs text-muted-foreground flex-shrink-0 mt-0.5">Aug 2020 – July 2024</span>
           </div>
         </section>
 
-        <section className="p-4 md:p-6 rounded-xl border border-border">
-          <h2 className="text-lg font-semibold mb-4">Projects</h2>
+        {/* Projects */}
+        <section>
+          <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">Projects</h2>
           <div className="space-y-4">
-            <div>
-              <h3 className="font-medium">RAG Chatbot</h3>
-              <p className="text-sm text-muted-foreground mt-1">Enterprise-grade AI chatbot with RAG architecture using LangChain, OpenAI, and Next.js</p>
-            </div>
-            <div>
-              <h3 className="font-medium">AI-Enhanced CRM</h3>
-              <p className="text-sm text-muted-foreground mt-1">CRM with AI-powered lead scoring, prediction, and smart search</p>
-            </div>
-            <div>
-              <h3 className="font-medium">Smart Contract Auditing Tool</h3>
-              <p className="text-sm text-muted-foreground mt-1">Automated smart contract analysis using AI</p>
-            </div>
+            {[
+              {
+                name: 'Orqys',
+                desc: 'AI-native engineering ops layer converting tickets into production-ready PRs via multi-agent orchestration',
+              },
+              {
+                name: 'Wispr Flow',
+                desc: 'Local-first voice-to-text system for macOS with on-device LLM rewriting using Apple MLX',
+              },
+              {
+                name: 'Synapse',
+                desc: 'Semantic search and relationship-mapping engine over personal networks using natural language',
+              },
+              {
+                name: 'Neploy',
+                desc: 'One-click deployment platform abstracting infrastructure, CI/CD, and runtime config on AWS + Docker',
+              },
+            ].map(({ name, desc }) => (
+              <div key={name}>
+                <p className="text-sm font-medium">{name}</p>
+                <p className="text-sm text-muted-foreground mt-0.5">{desc}</p>
+              </div>
+            ))}
           </div>
         </section>
       </div>

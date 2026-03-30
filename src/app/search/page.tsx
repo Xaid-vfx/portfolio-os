@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Search as SearchIcon, Loader2, ArrowRight } from 'lucide-react'
+import { Loader2, ArrowUpRight, Search } from 'lucide-react'
 import Link from 'next/link'
 
 interface SearchResult {
@@ -24,17 +24,14 @@ export default function SearchPage() {
 
   const handleSearch = async () => {
     if (!query.trim()) return
-
     setIsLoading(true)
     setHasSearched(true)
-
     try {
       const response = await fetch('/api/search', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ query }),
       })
-
       const data = await response.json()
       setResults(data.results || [])
     } catch (error) {
@@ -45,109 +42,88 @@ export default function SearchPage() {
     }
   }
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
-      handleSearch()
-    }
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') handleSearch()
   }
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
+    <div className="max-w-3xl mx-auto px-6 py-12">
       <div className="mb-8">
-        <div className="flex items-center gap-3 mb-4">
-          <SearchIcon className="w-8 h-8 text-primary" />
-          <h1 className="text-3xl font-bold">Semantic Search</h1>
-        </div>
-        <p className="text-muted-foreground">
-          Search across all projects using AI-powered semantic understanding.
-          Find relevant results even when keywords don&apos;t match exactly.
+        <h1 className="text-xl font-semibold mb-1">Semantic Search</h1>
+        <p className="text-sm text-muted-foreground">
+          Find projects using AI-powered semantic understanding. Works even when keywords don&apos;t match.
         </p>
       </div>
 
-      <div className="flex gap-3 mb-8">
+      <div className="flex gap-2 mb-8">
         <div className="flex-1 relative">
-          <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            onKeyPress={handleKeyPress}
+            onKeyDown={handleKeyDown}
             placeholder="Try: 'AI search engine' or 'real-time collaboration'..."
-            className="w-full pl-12 pr-4 py-3 rounded-xl border border-border bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 text-lg"
+            className="w-full pl-9 pr-4 py-2 rounded border border-border bg-background focus:outline-none focus:ring-1 focus:ring-border text-sm placeholder:text-muted-foreground"
+            autoFocus
           />
         </div>
         <button
           onClick={handleSearch}
           disabled={isLoading || !query.trim()}
-          className="px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors font-medium"
+          className="px-4 py-2 rounded bg-foreground text-background text-sm font-medium disabled:opacity-40 transition-opacity hover:opacity-80"
         >
-          {isLoading ? (
-            <Loader2 className="w-5 h-5 animate-spin" />
-          ) : (
-            'Search'
-          )}
+          {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : 'Search'}
         </button>
       </div>
 
       {hasSearched && (
-        <div className="mb-6">
-          <p className="text-sm text-muted-foreground">
-            {results.length} result{results.length !== 1 ? 's' : ''} found
-          </p>
+        <p className="text-xs text-muted-foreground mb-4">
+          {results.length} result{results.length !== 1 ? 's' : ''}
+        </p>
+      )}
+
+      {results.length > 0 && (
+        <div>
+          {results.map((result, index) => (
+            <Link
+              key={`${result.id}-${index}`}
+              href={
+                result.metadata.type === 'project' && result.metadata.slug
+                  ? `/projects/${result.metadata.slug}`
+                  : `/projects?tag=${encodeURIComponent(result.metadata.tag || '')}`
+              }
+              className="flex items-start justify-between py-4 border-b border-border hover:bg-accent/40 px-1 -mx-1 transition-colors group"
+            >
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-0.5">
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-accent text-muted-foreground uppercase tracking-wide">
+                    {result.metadata.type}
+                  </span>
+                  <span className="text-sm font-medium">{result.metadata.title}</span>
+                </div>
+                {result.metadata.tag && (
+                  <p className="text-xs text-muted-foreground pl-0">Tag: {result.metadata.tag}</p>
+                )}
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0 ml-4">
+                <span className="text-xs text-muted-foreground">{Math.round(result.score * 100)}%</span>
+                <ArrowUpRight className="w-3.5 h-3.5 text-muted-foreground/40 group-hover:text-muted-foreground transition-colors" />
+              </div>
+            </Link>
+          ))}
         </div>
       )}
 
-      <div className="space-y-4">
-        {results.map((result, index) => (
-          <Link
-            key={`${result.id}-${index}`}
-            href={result.metadata.type === 'project' && result.metadata.slug 
-              ? `/projects/${result.metadata.slug}` 
-              : `/projects?tag=${encodeURIComponent(result.metadata.tag || '')}`
-            }
-            className="block p-6 rounded-xl border border-border hover:border-primary/20 hover:bg-accent/50 transition-all"
-          >
-            <div className="flex items-start justify-between gap-4">
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-2">
-                  <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                    result.metadata.type === 'project' 
-                      ? 'bg-primary/10 text-primary' 
-                      : 'bg-purple-500/10 text-purple-600'
-                  }`}>
-                    {result.metadata.type === 'project' ? 'Project' : 'Tag'}
-                  </span>
-                  <span className="font-medium">{result.metadata.title}</span>
-                </div>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {result.metadata.tag && `Tag: ${result.metadata.tag}`}
-                </p>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="text-sm text-muted-foreground">
-                  {Math.round(result.score * 100)}% match
-                </div>
-                <ArrowRight className="w-4 h-4 text-muted-foreground" />
-              </div>
-            </div>
-          </Link>
-        ))}
-      </div>
-
       {!hasSearched && (
-        <div className="text-center py-16">
-          <SearchIcon className="w-16 h-16 mx-auto mb-4 text-muted-foreground/20" />
-          <p className="text-muted-foreground">
-            Enter a search query to find relevant projects
-          </p>
+        <div className="py-16 text-center">
+          <p className="text-sm text-muted-foreground">Enter a query above to search</p>
         </div>
       )}
 
       {hasSearched && results.length === 0 && !isLoading && (
-        <div className="text-center py-16">
-          <p className="text-muted-foreground">
-            No results found. Try a different query.
-          </p>
+        <div className="py-16 text-center">
+          <p className="text-sm text-muted-foreground">No results. Try a different query.</p>
         </div>
       )}
     </div>

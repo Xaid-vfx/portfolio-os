@@ -1,15 +1,18 @@
 {
   "insights": [
-    "Systems thinking is the core competency that ties all projects together",
-    "AI integration should feel invisible—enhancing rather than replacing human judgment",
-    "Modular architecture enables rapid iteration and feature addition",
-    "Knowledge graphs reveal hidden connections that linear lists cannot capture"
+    "Strong gravitational pull toward AI-native developer tooling — building systems that compress the mechanical parts of engineering",
+    "Infrastructure cost optimization is an underrated skill. The $300/day → $500/month reduction at Absinthe wasn't just containerization — it was rethinking what actually needs to run",
+    "Multi-tenancy done right lives in the database, not the application. RLS at Bloom eliminated an entire class of bugs",
+    "Local-first AI is a design philosophy, not just a deployment choice. Wispr Flow proves that privacy and performance aren't in tension",
+    "The gap between 'working on my machine' and 'running in production' is where most builders get stuck. Neploy was an attempt to close it",
+    "Agent orchestration works best when agents are specialized. Monolithic LLM calls fail at complex tasks. Decomposition is the answer"
   ],
   "patterns": [
-    "Full-stack projects with AI/ML components show highest engagement",
-    "Real-time features add significant value to collaboration tools",
-    "Documentation-first approach improves both user experience and development speed",
-    "Embeddings-based search outperforms keyword matching for technical content"
+    "Every significant project involves building a data pipeline — ingestion, transformation, and serving are the universal backend pattern",
+    "Real-time systems (WebSockets, Kafka, Realtime) show up in nearly every role. The ability to build systems that react instantly is a core competency",
+    "Cloud infrastructure (AWS, Docker, Terraform) is the substrate. The interesting work happens on top, but the substrate has to be solid",
+    "Projects succeed when onboarding is obsessed over. Bloom's 12-iteration onboarding flow proved this. Technical excellence means nothing if users can't get started",
+    "The best architectures are modular enough to iterate on independently. Tight coupling kills velocity"
   ],
-  "lastUpdated": "2024-02-15T10:00:00Z"
+  "lastUpdated": "2026-03-29T22:00:00Z"
 }

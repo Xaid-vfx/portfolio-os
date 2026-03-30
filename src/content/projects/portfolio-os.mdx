@@ -1,36 +1,37 @@
 ---
 title: "Portfolio OS"
-description: "A self-evolving personal operating system that combines Notion-style content management with AI-powered features. Built with Next.js, it features semantic search, knowledge graphs, and streaming AI responses."
-tags: ["typescript", "nextjs", "ai", "systems", "full-stack"]
+description: "A self-evolving personal operating system. Notion-style structure with semantic search, knowledge graphs, and AI-native features."
+tags: ["nextjs", "typescript", "ai", "systems", "full-stack"]
 status: "building"
-links: ["neural-search", "knowledge-graph"]
-date: "2024-01-15"
+links: ["orqys", "synapse"]
+date: "2026-03-15"
 ---
 
 ## Overview
 
-Portfolio OS is not just a portfolio—it's a living system that represents how I think and build. It combines structured content, knowledge relationships, and AI capabilities into a unified experience.
+This website. Not a portfolio template—a living system that represents how I think, build, and connect ideas. It combines structured content with knowledge relationships, semantic search, and AI capabilities.
 
-## System Design
+## Problem
 
-The architecture follows a modular pattern:
+Traditional portfolios are static lists of projects. They don't capture how things relate, why decisions were made, or how thinking evolves. They're resumes with better CSS.
 
-- **Content Layer**: MDX-based project documentation
-- **Graph Layer**: D3.js visualization of project relationships
-- **AI Layer**: OpenAI embeddings for semantic search and Q&A
-- **Memory Layer**: Persistent insights that improve over time
+## Approach
 
-### Key Technical Decisions
+- **Content Layer**: MDX-based project documentation with structured frontmatter for metadata, tags, and inter-project links
+- **Graph Layer**: D3.js force-directed visualization of project relationships, surfacing connections that linear lists miss
+- **AI Layer**: OpenAI embeddings for semantic search and conversational Q&A about my work
+- **Memory Layer**: Persistent system memory that accumulates insights and patterns over time
 
-1. **MDX for Content**: Allows writing with React components inline
-2. **Client-side Graph**: D3.js with force simulation for dynamic layout
-3. **Streaming Responses**: ReadableStream for real-time AI output
-4. **Embeddings Cache**: Pre-computed vectors for fast similarity search
+## Key Decisions
+
+- **MDX over a CMS**: Content lives in the codebase. No API calls, no database, no auth. The content format is the API.
+- **D3.js over a graph library**: Full control over the visualization. Force simulation parameters are tuned for readability, not just aesthetics.
+- **Pre-computed embeddings**: Vectors are generated at build time, not runtime. Search is fast because the expensive computation happened during deployment.
 
 ## Challenges
 
-Building a cohesive system while maintaining performance was the primary challenge. The graph visualization required careful optimization to handle large datasets smoothly.
+Making a personal system that's actually useful requires discipline in content structure. Every project entry needs consistent metadata for the graph and search layers to work. The temptation to write free-form prose had to be balanced against the need for machine-readable structure.
 
 ## Outcome
 
-A system that demonstrates full-stack capabilities, AI integration, and systems thinking—exactly the kind of platform I enjoy building.
+A system that demonstrates how I think about engineering: modular, interconnected, and designed to compound value over time. The content feeds the graph, the graph reveals patterns, and the AI layer makes everything queryable.
