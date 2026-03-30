@@ -80,7 +80,7 @@ Answer questions about his work, projects, or technical decisions. Be concise, d
     if (!stream.ok) {
       const errBody = await stream.text()
       console.error('Groq API error:', stream.status, errBody)
-      throw new Error('Groq API error')
+      throw new Error(`Groq API error: ${stream.status} - ${errBody.slice(0, 200)}`)
     }
 
     const encoder = new TextEncoder()
@@ -133,9 +133,10 @@ Answer questions about his work, projects, or technical decisions. Be concise, d
     })
   } catch (error) {
     console.error('Ask error:', error)
+    const message = error instanceof Error ? error.message : 'Unknown error'
     return NextResponse.json({ 
       error: 'Failed to generate response',
-      response: 'I encountered an error processing your question. Please try again.'
+      response: `I encountered an error: ${message}. Please try again.`
     }, { status: 500 })
   }
 }
