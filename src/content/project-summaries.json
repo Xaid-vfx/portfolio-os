@@ -1,0 +1,7 @@
+{
+  "synapse": "Semantic search engine for your contacts. Turn flat contact lists into a queryable knowledge base — ask natural language questions like \"who do I know that's built fintech products?\" and get relevant connections ranked by relationship strength.",
+  "wispr-flow": "Local-first voice-to-text for macOS. Sub-300ms latency using Whisper + MLX on Apple Silicon, with optional on-device LLM rewriting. Fully offline, zero cloud dependency, privacy-first.",
+  "orqys": "Multi-agent engineering ops that converts tickets into production-ready PRs. Orchestrates Context, Planning, Code, and Review agents via MCP to produce deployable code — not suggestions, actual PRs.",
+  "bloom": "Multi-tenant apprenticeship platform for African markets. Built on Supabase with RLS, real-time messaging, and Paystack split payments. Scaled to 1,200+ users across 50+ programs.",
+  "neploy": "One-click deployment platform. Push code, get a running app — no Dockerfiles, CI/CD config, or infrastructure provisioning. Auto-detects framework, containerizes, and deploys to AWS."
+}
