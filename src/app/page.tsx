@@ -21,8 +21,9 @@ export default function HomePage() {
       <section className="mb-16">
         <h1 className="text-2xl font-semibold tracking-tight mb-3">Mohd Zaid</h1>
         <p className="text-muted-foreground leading-relaxed max-w-xl">
-          Systems engineer building AI-native tooling, distributed backends, and developer infrastructure.
-          I think in systems — from multi-agent orchestration to real-time data pipelines to cloud-native deployments.
+          I build things. Sometimes it's AI agents, sometimes it's real-time systems, sometimes it's just whatever idea won't leave my head at 2am.
+          <br />
+          Systems engineer by trade, vibe coder by choice. I ship, I break, I fix, I repeat.
         </p>
 
         <div className="flex items-center gap-4 mt-6">
@@ -53,31 +54,15 @@ export default function HomePage() {
         <ul className="space-y-2 text-sm">
           <li className="flex items-start gap-2">
             <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Ranked top 200 globally in Clash of Clans (~100M+ players)</span>
+            <span className="text-muted-foreground">Ranked top 200 in Clash of Clans globally (100M+ players)</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Started building brute-force scripts at 15 to understand system vulnerabilities</span>
+            <span className="text-muted-foreground">Started hacking systems at 15 — wrote brute-force scripts to find vulnerabilities</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Reduced infra costs by 94% in production systems</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Built systems handling millions of events and real-time data</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Known for shipping systems in hours/days instead of weeks</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Focused on AI-native developer tooling and automation</span>
-          </li>
-          <li className="flex items-start gap-2">
-            <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Strong bias toward real-time, low-latency systems</span>
+            <span className="text-muted-foreground">Ships features in hours, not weeks</span>
           </li>
         </ul>
       </section>
