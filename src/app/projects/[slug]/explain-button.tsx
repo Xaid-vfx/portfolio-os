@@ -54,6 +54,7 @@ export function ExplainButton({ project }: ExplainButtonProps) {
         }
       }
     } catch (err) {
+      console.error('Explain error:', err)
       setError('Failed to generate explanation. Please try again.')
     } finally {
       setIsLoading(false)

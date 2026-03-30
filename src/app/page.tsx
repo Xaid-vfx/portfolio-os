@@ -8,7 +8,11 @@ import { ArrowRight } from 'lucide-react'
 export default function HomePage() {
   const projects = getAllProjects()
   const activities = getActivities()
-  const recentProjects = projects.slice(0, 5)
+  
+  const recentProjectSlugs = ['synapse', 'wispr-flow', 'orqys', 'bloom', 'neploy']
+  const recentProjects = recentProjectSlugs
+    .map(slug => projects.find(p => p.slug === slug))
+    .filter(Boolean) as typeof projects
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-12 md:py-16">

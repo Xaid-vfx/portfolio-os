@@ -8,10 +8,33 @@ import { CommandMenu } from '@/components/command-menu'
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: 'Mohd Zaid',
-  description: 'Systems engineer building AI-native tooling, distributed backends, and developer infrastructure.',
+  title: 'Zaid',
+  description: 'Founder, Builder and Engineer',
+  authors: [{ name: 'Zaid', url: 'https://www.okzaid.com' }],
+  creator: '@okzaid',
+  keywords: ['Zaid', 'Startup', 'Engineer', 'Full Stack', 'Founder', 'Clash of Clans', 'Tech', 'Developer', 'Portfolio', 'Product Builder'],
+  robots: 'index, follow',
+  alternates: {
+    canonical: 'https://www.okzaid.com',
+  },
+  openGraph: {
+    title: 'Zaid',
+    description: 'Founder, Builder and Engineer',
+    url: 'https://www.okzaid.com',
+    siteName: 'Zaid Portfolio',
+    locale: 'en_US',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@okzaid',
+    creator: '@okzaid',
+    title: 'Zaid',
+    description: 'Founder, Builder and Engineer',
+  },
   icons: {
     icon: '/favicon.ico',
+    apple: '/apple-icon',
   },
 }
 
