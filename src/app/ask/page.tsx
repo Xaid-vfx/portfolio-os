@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { Send, Loader2 } from 'lucide-react'
+import ReactMarkdown from 'react-markdown'
 import { VoiceInput } from '@/components/voice-input'
 import { StreamingText } from '@/components/streaming-text'
 
@@ -98,10 +99,12 @@ export default function AskPage() {
               {message.role === 'assistant' && index === messages.length - 1 && isLoading ? (
                 <StreamingText
                   text={message.content}
-                  className={`text-sm leading-relaxed ${!message.content ? 'streaming-cursor' : ''}`}
+                  className="text-sm leading-relaxed"
                 />
               ) : (
-                <p className="whitespace-pre-wrap">{message.content}</p>
+                <div className="whitespace-pre-wrap text-sm leading-relaxed">
+                  <ReactMarkdown>{message.content}</ReactMarkdown>
+                </div>
               )}
             </div>
           </div>

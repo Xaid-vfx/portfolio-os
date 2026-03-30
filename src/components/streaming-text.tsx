@@ -35,7 +35,7 @@ export function StreamingText({ text, className, showCursor = true }: StreamingT
     <p className={cn('whitespace-pre-wrap', className)}>
       {displayedText}
       {showCursor && !isComplete && (
-        <span className="inline-block w-2 h-4 ml-1 bg-primary animate-pulse" />
+        <span className="inline-block w-0.5 h-4 ml-0.5 bg-primary" />
       )}
     </p>
   )
