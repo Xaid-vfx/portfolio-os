@@ -25,11 +25,12 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Question is required' }, { status: 400 })
     }
 
-    const apiKey = process.env.GROQ_API_KEY
-    if (!apiKey) {
+    const groqApiKey = process.env.GROQ_API_KEY
+    const deepseekApiKey = process.env.DEEPSEEK_API_KEY
+    if (!groqApiKey && !deepseekApiKey) {
       return NextResponse.json({ 
-        error: 'Groq API key not configured',
-        response: "I'm not configured to answer questions right now. Please set up the GROQ_API_KEY."
+        error: 'API key not configured',
+        response: "I'm not configured to answer questions right now."
       }, { status: 500 })
     }
 
@@ -60,27 +61,57 @@ About Zaid:
 
 Answer questions about his work, projects, or technical decisions. Be concise, direct, and technical. Don't make up information — only reference what's provided in the context.`
 
-    const stream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: question }
-        ],
-        stream: true,
-        max_tokens: 1024,
-      }),
-    })
+    let stream = null
+    let useDeepseek = false
 
-    if (!stream.ok) {
-      const errBody = await stream.text()
-      console.error('Groq API error:', stream.status, errBody)
-      throw new Error(`Groq API error: ${stream.status} - ${errBody.slice(0, 200)}`)
+    if (groqApiKey) {
+      stream = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${groqApiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: question }
+          ],
+          stream: true,
+          max_tokens: 1024,
+        }),
+      })
+
+      if (!stream.ok && stream.status !== 429) {
+        const errBody = await stream.text()
+        console.error('Groq API error:', stream.status, errBody)
+      }
+    }
+
+    if (!stream?.ok && deepseekApiKey) {
+      useDeepseek = true
+      stream = await fetch('https://api.deepseek.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${deepseekApiKey}`,
+        },
+        body: JSON.stringify({
+          model: 'deepseek-chat',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: question }
+          ],
+          stream: true,
+          max_tokens: 1024,
+        }),
+      })
+    }
+
+    if (!stream?.ok) {
+      const errBody = await stream?.text().catch(() => '')
+      console.error('API error:', stream?.status, errBody)
+      throw new Error(`API error: ${stream?.status || 'unknown'}`)
     }
 
     const encoder = new TextEncoder()
