@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import {
   Home,
@@ -17,6 +18,8 @@ import {
   Menu,
   X,
   BookOpen,
+  Sun,
+  Moon,
 } from 'lucide-react'
 
 const navItems = [
@@ -40,6 +43,7 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
+  const { resolvedTheme, setTheme } = useTheme()
 
   return (
     <>
@@ -100,11 +104,18 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="h-10 px-4 flex items-center border-t border-border">
+        <div className="h-10 px-4 flex items-center justify-between border-t border-border">
           <p className="text-xs text-muted-foreground">
             <kbd className="font-mono">⌘K</kbd>
             <span className="ml-1.5">to search</span>
           </p>
+          <button
+            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+            className="p-1.5 rounded hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Toggle theme"
+          >
+            {resolvedTheme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+          </button>
         </div>
       </aside>
     </>

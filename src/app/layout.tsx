@@ -4,6 +4,7 @@ import './globals.css'
 import { MobileNavProvider } from '@/components/mobile-nav-context'
 import { AppShell } from '@/components/app-shell'
 import { CommandMenu } from '@/components/command-menu'
+import { ThemeProvider } from '@/components/theme-provider'
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
 
@@ -44,12 +45,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={inter.variable} suppressHydrationWarning>
       <body className="min-h-screen bg-background antialiased">
-        <MobileNavProvider>
-          <AppShell>{children}</AppShell>
-        </MobileNavProvider>
-        <CommandMenu />
+        <ThemeProvider>
+          <MobileNavProvider>
+            <AppShell>{children}</AppShell>
+          </MobileNavProvider>
+          <CommandMenu />
+        </ThemeProvider>
       </body>
     </html>
   )
