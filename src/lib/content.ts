@@ -74,7 +74,65 @@ export function getAllTags(): string[] {
 }
 
 export function getProjectsByTag(tag: string): Project[] {
-  return getAllProjects().filter(project => 
+  return getAllProjects().filter(project =>
     project.frontmatter.tags?.includes(tag)
   )
+}
+
+export interface BlogFrontmatter {
+  title: string
+  description: string
+  date: string
+  tags: string[]
+}
+
+export interface BlogPost {
+  slug: string
+  frontmatter: BlogFrontmatter
+  content: string
+  rawContent: string
+}
+
+export function getAllBlogs(): BlogPost[] {
+  const blogDir = path.join(CONTENT_DIR, 'blog')
+
+  if (!fs.existsSync(blogDir)) {
+    return []
+  }
+
+  const files = fs.readdirSync(blogDir).filter(f => f.endsWith('.mdx'))
+
+  return files
+    .map(filename => {
+      const slug = filename.replace('.mdx', '')
+      const filePath = path.join(blogDir, filename)
+      const fileContent = fs.readFileSync(filePath, 'utf-8')
+      const { data, content } = matter(fileContent)
+
+      return {
+        slug,
+        frontmatter: data as BlogFrontmatter,
+        content,
+        rawContent: content.replace(/[#*`]/g, '').replace(/\n+/g, ' ').trim(),
+      }
+    })
+    .sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime())
+}
+
+export function getBlogBySlug(slug: string): BlogPost | null {
+  const filePath = path.join(CONTENT_DIR, 'blog', `${slug}.mdx`)
+
+  if (!fs.existsSync(filePath)) {
+    return null
+  }
+
+  const fileContent = fs.readFileSync(filePath, 'utf-8')
+  const { data, content } = matter(fileContent)
+
+  return {
+    slug,
+    frontmatter: data as BlogFrontmatter,
+    content,
+    rawContent: content.replace(/[#*`]/g, '').replace(/\n+/g, ' ').trim(),
+  }
 }

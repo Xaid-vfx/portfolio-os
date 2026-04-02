@@ -16,11 +16,13 @@ import {
   Activity,
   Menu,
   X,
+  BookOpen,
 } from 'lucide-react'
 
 const navItems = [
   { href: '/', label: 'Home', icon: Home },
   { href: '/projects', label: 'Projects', icon: FolderOpen },
+  { href: '/blog', label: 'Blog', icon: BookOpen },
   { href: '/experiments', label: 'Experiments', icon: FlaskConical },
   { href: '/experience', label: 'Experience', icon: Briefcase },
   { href: '/graph', label: 'Graph', icon: GitBranch },
