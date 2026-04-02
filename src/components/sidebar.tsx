@@ -36,6 +36,19 @@ const navItems = [
   { href: '/resume', label: 'Resume', icon: FileText },
 ]
 
+function ThemeToggle() {
+  const { resolvedTheme, setTheme } = useTheme()
+  return (
+    <button
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+      className="p-1.5 rounded hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
+      aria-label="Toggle theme"
+    >
+      {resolvedTheme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
+    </button>
+  )
+}
+
 interface SidebarProps {
   isOpen: boolean
   onClose: () => void
@@ -43,7 +56,6 @@ interface SidebarProps {
 
 export function Sidebar({ isOpen, onClose }: SidebarProps) {
   const pathname = usePathname()
-  const { resolvedTheme, setTheme } = useTheme()
 
   return (
     <>
@@ -68,12 +80,15 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             </div>
             <span className="text-sm font-medium">Mohd Zaid</span>
           </div>
-          <button
-            onClick={onClose}
-            className="p-1 rounded hover:bg-accent md:hidden text-muted-foreground"
-          >
-            <X className="w-4 h-4" />
-          </button>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              onClick={onClose}
+              className="p-1 rounded hover:bg-accent md:hidden text-muted-foreground"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
         {/* Nav */}
@@ -104,18 +119,11 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="h-10 px-4 flex items-center justify-between border-t border-border">
+        <div className="h-10 px-4 flex items-center border-t border-border">
           <p className="text-xs text-muted-foreground">
             <kbd className="font-mono">⌘K</kbd>
             <span className="ml-1.5">to search</span>
           </p>
-          <button
-            onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-            className="p-1.5 rounded hover:bg-accent text-muted-foreground hover:text-foreground transition-colors"
-            aria-label="Toggle theme"
-          >
-            {resolvedTheme === 'dark' ? <Sun className="w-3.5 h-3.5" /> : <Moon className="w-3.5 h-3.5" />}
-          </button>
         </div>
       </aside>
     </>
@@ -128,19 +136,22 @@ interface MobileHeaderProps {
 
 export function MobileHeader({ onMenuClick }: MobileHeaderProps) {
   return (
-    <header className="md:hidden h-12 flex items-center gap-3 px-4 border-b border-border bg-background sticky top-0 z-30">
-      <button
-        onClick={onMenuClick}
-        className="p-1.5 -ml-1.5 rounded hover:bg-accent text-muted-foreground"
-      >
-        <Menu className="w-4 h-4" />
-      </button>
-      <div className="flex items-center gap-2">
-        <div className="w-5 h-5 rounded bg-foreground flex items-center justify-center">
-          <span className="text-background text-[10px] font-bold leading-none">Z</span>
+    <header className="md:hidden h-12 flex items-center justify-between px-4 border-b border-border bg-background sticky top-0 z-30">
+      <div className="flex items-center gap-3">
+        <button
+          onClick={onMenuClick}
+          className="p-1.5 -ml-1.5 rounded hover:bg-accent text-muted-foreground"
+        >
+          <Menu className="w-4 h-4" />
+        </button>
+        <div className="flex items-center gap-2">
+          <div className="w-5 h-5 rounded bg-foreground flex items-center justify-center">
+            <span className="text-background text-[10px] font-bold leading-none">Z</span>
+          </div>
+          <span className="text-sm font-medium">Mohd Zaid</span>
         </div>
-        <span className="text-sm font-medium">Mohd Zaid</span>
       </div>
+      <ThemeToggle />
     </header>
   )
 }
