@@ -20,6 +20,9 @@ import {
   BookOpen,
   Sun,
   Moon,
+  Github,
+  Linkedin,
+  Mail,
 } from 'lucide-react'
 
 const navItems = [
@@ -119,11 +122,22 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
         </nav>
 
         {/* Footer */}
-        <div className="h-10 px-4 flex items-center border-t border-border">
+        <div className="px-4 py-3 border-t border-border flex items-center justify-between">
           <p className="text-xs text-muted-foreground">
             <kbd className="font-mono">⌘K</kbd>
             <span className="ml-1.5">to search</span>
           </p>
+          <div className="flex items-center gap-2">
+            <a href="https://github.com/Xaid-vfx" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Github className="w-3.5 h-3.5" />
+            </a>
+            <a href="https://www.linkedin.com/in/mohd-zaid-3889801b7/" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Linkedin className="w-3.5 h-3.5" />
+            </a>
+            <a href="mailto:mohdzaid.work@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
+              <Mail className="w-3.5 h-3.5" />
+            </a>
+          </div>
         </div>
       </aside>
     </>

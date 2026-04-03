@@ -3,7 +3,7 @@ import { getAllProjects } from '@/lib/content'
 import { getActivities } from '@/lib/unified-data'
 import { ActivityFeed } from '@/components/activity-feed'
 import { ProjectCard } from '@/components/project-card'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight, Github, Linkedin, Mail } from 'lucide-react'
 
 export default function HomePage() {
   const projects = getAllProjects()
@@ -45,6 +45,18 @@ export default function HomePage() {
           >
             Resume →
           </Link>
+        </div>
+
+        <div className="flex items-center gap-3 mt-4">
+          <a href="https://github.com/Xaid-vfx" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <Github className="w-3.5 h-3.5" /> GitHub
+          </a>
+          <a href="https://www.linkedin.com/in/mohd-zaid-3889801b7/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <Linkedin className="w-3.5 h-3.5" /> LinkedIn
+          </a>
+          <a href="mailto:mohdzaid.work@gmail.com" className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors">
+            <Mail className="w-3.5 h-3.5" /> mohdzaid.work@gmail.com
+          </a>
         </div>
       </section>
 
