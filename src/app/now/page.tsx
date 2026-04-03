@@ -64,7 +64,7 @@ export default function NowPage() {
           <ul className="space-y-3">
             {[
               'Whether agent orchestration should be DAG-based or event-driven at the edges',
-              'The right abstraction layer for local-first AI — should models know they\u0027re running on-device?',
+              'The right abstraction layer for local-first AI - should models know they\u0027re running on-device?',
               'How to make deployment invisible without hiding complexity that matters',
             ].map((thought, i) => (
               <li key={i} className="flex items-start gap-3 text-sm">

@@ -39,7 +39,7 @@ export function ProjectsClient({ projects, allTags }: ProjectsClientProps) {
       <div className="mb-8">
         <h1 className="text-xl font-semibold mb-1">Projects</h1>
         <p className="text-sm text-muted-foreground">
-          {projects.length} projects — systems thinking, AI integration, and full-stack development.
+          {projects.length} projects - systems thinking, AI integration, and full-stack development.
         </p>
       </div>
 

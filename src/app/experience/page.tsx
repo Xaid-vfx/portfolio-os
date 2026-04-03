@@ -6,17 +6,17 @@ const experiences = [
     role: 'Software Engineer',
     company: 'Absinthe Labs',
     location: 'NYC, US (Remote)',
-    period: 'Oct 2025 – Present',
+    period: 'Oct 2025 - Present',
     what_i_owned:
-      'End-to-end ownership of the core campaign and incentives platform — distributed backends, identity verification infrastructure, and high-throughput data pipelines powering enterprise Web3 engagement programs.',
+      'End-to-end ownership of the core campaign and incentives platform - distributed backends, identity verification infrastructure, and high-throughput data pipelines powering enterprise Web3 engagement programs.',
     what_i_built: [
       'Distributed ingestion systems processing millions of user submissions with concurrency-safe pipelines, rate limiting, and moderation workflows that handled traffic spikes without breaking',
-      'dbt transformation models powering campaign points and incentive systems — large-scale data cleanup and pipeline failure resolution across millions of rows of user activity data',
+      'dbt transformation models powering campaign points and incentive systems - large-scale data cleanup and pipeline failure resolution across millions of rows of user activity data',
       'AI-powered website generator and a reputation-based identity verification system using non-transferable NFTs',
     ],
     interesting_problems: [
       'Reduced infrastructure costs from $300/day to $500/month (94% reduction) by containerizing services and redesigning deployment architecture',
-      'Debugged distributed cache inconsistencies across production workloads — the kind of bug where everything looks fine on paper but users see stale data',
+      'Debugged distributed cache inconsistencies across production workloads - the kind of bug where everything looks fine on paper but users see stale data',
       'Optimized inbound/outbound APIs and database queries to eliminate bottlenecks in a system serving enterprise-scale traffic',
     ],
     stack: ['TypeScript', 'Node.js', 'React', 'Next.js', 'GraphQL', 'Hasura', 'PostgreSQL', 'dbt', 'Docker', 'AWS'],
@@ -26,11 +26,11 @@ const experiences = [
     role: 'Full Stack Developer',
     company: 'IG Group',
     location: 'Bangalore, India',
-    period: 'Sept 2024 – Sept 2025',
+    period: 'Sept 2024 - Sept 2025',
     what_i_owned:
       'Cloud migration of legacy on-prem trading systems and real-time data synchronization infrastructure for 350k+ active traders.',
     what_i_built: [
-      'Migrated on-prem Spring Boot systems to AWS using Terraform — Lambda, DynamoDB, S3, SES — achieving 35% cost reduction with 99.99% uptime and sub-50ms query latency',
+      'Migrated on-prem Spring Boot systems to AWS using Terraform - Lambda, DynamoDB, S3, SES - achieving 35% cost reduction with 99.99% uptime and sub-50ms query latency',
       'Distributed Kafka pipelines and WebSocket services synchronizing real-time trading data between cloud and on-prem systems, reducing manual data handoffs by 80%',
       'Spring Boot microservices on Nomad processing 10k+ Kafka events daily with zero downtime, including integrations with ProRealTime and TradingView',
     ],
@@ -46,7 +46,7 @@ const experiences = [
     role: 'Co-founder & Engineering Lead',
     company: 'Bloom',
     location: 'London, UK (Remote)',
-    period: 'Dec 2023 – Aug 2024',
+    period: 'Dec 2023 - Aug 2024',
     what_i_owned:
       'Architecture and engineering for a multi-tenant apprenticeship platform serving African markets. Everything from database design to payment integration to real-time messaging.',
     what_i_built: [
@@ -55,7 +55,7 @@ const experiences = [
       'Paystack Split Payments integration automating apprentice-to-mentor payouts with compliant fee extraction',
     ],
     interesting_problems: [
-      'Onboarding users with varying technical literacy — 12 iterations to reach 70% completion rate',
+      'Onboarding users with varying technical literacy - 12 iterations to reach 70% completion rate',
       'Payment compliance across different African markets with different regulatory requirements',
       'Row-level security policies that are simple enough to audit but flexible enough to handle complex org hierarchies',
     ],
@@ -66,16 +66,16 @@ const experiences = [
     role: 'Full Stack Developer',
     company: 'Graviti',
     location: 'Remote',
-    period: 'Oct 2022 – Dec 2023',
+    period: 'Oct 2022 - Dec 2023',
     what_i_owned:
-      'Real-time logistics tracking platform — live vehicle tracking, order status synchronization, and cross-device document rendering for manufacturers and transporters.',
+      'Real-time logistics tracking platform - live vehicle tracking, order status synchronization, and cross-device document rendering for manufacturers and transporters.',
     what_i_built: [
       'Real-time order tracking on Google Maps with WebSocket-powered status updates and geolocation sync across distributed logistics workflows',
       'Backend REST APIs in Node.js synchronizing live location and order status between transporters, manufacturers, and internal dashboards',
       'Custom in-browser PDF and image viewer using React and PDF.js for cross-device receipt and order confirmation rendering',
     ],
     interesting_problems: [
-      'GPS accuracy in rural India — signals drop, connectivity is intermittent, and devices report impossible positions',
+      'GPS accuracy in rural India - signals drop, connectivity is intermittent, and devices report impossible positions',
       'Building a smoothing algorithm that interpolates vehicle positions during signal gaps without showing teleportation',
       'Cross-device PDF rendering consistency where browser defaults fail on mobile',
     ],

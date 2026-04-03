@@ -17,7 +17,7 @@
     {
       "id": "3",
       "type": "ship",
-      "title": "Wispr Flow v2 — streaming rewrite",
+      "title": "Wispr Flow v2 - streaming rewrite",
       "description": "Shipped streaming transcription mode. Audio chunks are now processed as they arrive instead of waiting for silence detection. Sub-300ms latency.",
       "timestamp": "2026-03-26T14:00:00Z"
     },

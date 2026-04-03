@@ -51,7 +51,7 @@ Consider:
 - Systems-level projects, not feature-level ideas
 - Projects that would be impressive to strong technical teams
 
-Provide exactly 5 specific, actionable suggestions. Each should be a single concise sentence. No numbering, no bullets — just the raw suggestions, one per line.`
+Provide exactly 5 specific, actionable suggestions. Each should be a single concise sentence. No numbering, no bullets - just the raw suggestions, one per line.`
           },
           {
             role: 'user',

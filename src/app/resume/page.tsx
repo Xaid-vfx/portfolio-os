@@ -54,7 +54,7 @@ export default function ResumePage() {
           <h2 className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-3">Summary</h2>
           <p className="text-sm text-muted-foreground leading-relaxed">
             Systems-oriented engineer with experience across distributed backends, cloud infrastructure, AI-native tooling, and full-stack product development.
-            Built and shipped production systems at scale — from campaign platforms processing millions of events to real-time trading infrastructure serving 350k+ users.
+            Built and shipped production systems at scale - from campaign platforms processing millions of events to real-time trading infrastructure serving 350k+ users.
           </p>
         </section>
 
@@ -67,9 +67,9 @@ export default function ResumePage() {
                 role: 'Software Engineer',
                 company: 'Absinthe Labs',
                 location: 'NYC, US (Remote)',
-                period: 'Oct 2025 – Present',
+                period: 'Oct 2025 - Present',
                 highlights: [
-                  'Owned core campaign and incentives platform end-to-end — 100+ production features across distributed backends, identity verification, and high-throughput data pipelines',
+                  'Owned core campaign and incentives platform end-to-end - 100+ production features across distributed backends, identity verification, and high-throughput data pipelines',
                   'Engineered distributed ingestion systems handling millions of submissions with concurrency-safe processing and rate limiting',
                   'Reduced infrastructure costs from $300/day to $500/month (94% reduction) via containerization and deployment redesign',
                   'Built AI-powered website generator and reputation-based identity verification using non-transferable NFTs',
@@ -79,9 +79,9 @@ export default function ResumePage() {
                 role: 'Full Stack Developer',
                 company: 'IG Group',
                 location: 'Bangalore, India',
-                period: 'Sept 2024 – Sept 2025',
+                period: 'Sept 2024 - Sept 2025',
                 highlights: [
-                  'Migrated on-prem Spring Boot trading systems to AWS using Terraform — 35% cost reduction, 99.99% uptime, sub-50ms latency for 350k+ traders',
+                  'Migrated on-prem Spring Boot trading systems to AWS using Terraform - 35% cost reduction, 99.99% uptime, sub-50ms latency for 350k+ traders',
                   'Built distributed Kafka pipelines and WebSocket services for real-time trading data sync between cloud and on-prem systems',
                   'Deployed Spring Boot microservices on Nomad processing 10k+ Kafka events daily with zero downtime',
                 ],
@@ -90,9 +90,9 @@ export default function ResumePage() {
                 role: 'Co-founder & Engineering Lead',
                 company: 'Bloom',
                 location: 'London, UK (Remote)',
-                period: 'Dec 2023 – Aug 2024',
+                period: 'Dec 2023 - Aug 2024',
                 highlights: [
-                  'Co-founded multi-tenant apprenticeship platform for African markets — 1,200+ users, 50+ programs, 15+ partner organizations',
+                  'Co-founded multi-tenant apprenticeship platform for African markets - 1,200+ users, 50+ programs, 15+ partner organizations',
                   'Designed multi-tenant backend with Supabase RLS, PostgreSQL triggers, and real-time messaging via LISTEN/NOTIFY',
                   'Integrated Paystack Split Payments for automated mentor payouts with regional compliance',
                 ],
@@ -101,7 +101,7 @@ export default function ResumePage() {
                 role: 'Full Stack Developer',
                 company: 'Graviti',
                 location: 'Remote',
-                period: 'Oct 2022 – Dec 2023',
+                period: 'Oct 2022 - Dec 2023',
                 highlights: [
                   'Built real-time order tracking platform using Google Maps, WebSockets, and geolocation for 100+ manufacturers and transporters',
                   'Developed backend REST APIs synchronizing live location and order status across distributed logistics workflows',
@@ -164,7 +164,7 @@ export default function ResumePage() {
               <p className="text-sm font-medium">Bachelor of Engineering in Computer Science</p>
               <p className="text-sm text-muted-foreground">Nitte Meenakshi Institute of Technology, Bangalore</p>
             </div>
-            <span className="text-xs text-muted-foreground flex-shrink-0 mt-0.5">Aug 2020 – July 2024</span>
+            <span className="text-xs text-muted-foreground flex-shrink-0 mt-0.5">Aug 2020 - July 2024</span>
           </div>
         </section>
 

@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const projects = getAllProjects()
 
     const projectSummaries = projects.map((p, i) => 
-      `[${i}] ${p.frontmatter.title} (${p.frontmatter.status}) — ${p.frontmatter.description} | Tags: ${p.frontmatter.tags?.join(', ')}`
+      `[${i}] ${p.frontmatter.title} (${p.frontmatter.status}) - ${p.frontmatter.description} | Tags: ${p.frontmatter.tags?.join(', ')}`
     ).join('\n')
 
     const apiKey = process.env.GROQ_API_KEY
@@ -40,7 +40,7 @@ RULES:
 - Score represents semantic relevance, not keyword match
 - Return at most 5 results
 - Only include results with score > 0.3
-- No explanation, no markdown — just the JSON array
+- No explanation, no markdown - just the JSON array
 
 Example output: [{"index": 2, "score": 0.95}, {"index": 0, "score": 0.7}]`
           },
@@ -108,7 +108,7 @@ Example output: [{"index": 2, "score": 0.95}, {"index": 0, "score": 0.7}]`
 }
 
 /**
- * Fallback keyword search — no API needed.
+ * Fallback keyword search - no API needed.
  * Used when GROQ_API_KEY is not set or API fails.
  */
 function keywordSearch(query: string, projects: ReturnType<typeof getAllProjects>) {

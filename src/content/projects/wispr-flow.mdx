@@ -9,7 +9,7 @@ date: "2026-02-15"
 
 ## Overview
 
-Wispr Flow is a local-first voice-to-text system for macOS. It captures speech, transcribes it in real-time using Whisper, and optionally rewrites the output using a local LLM—all without touching the cloud.
+Wispr Flow is a local-first voice-to-text system for macOS. It captures speech, transcribes it in real-time using Whisper, and optionally rewrites the output using a local LLM-all without touching the cloud.
 
 ## Problem
 
@@ -24,7 +24,7 @@ The pipeline runs entirely on-device:
 - **LLM rewriting**: Dolphin3 via Ollama for optional grammar correction, reformatting, or style transformation
 - **Threading model**: Multi-threaded pipeline separating audio capture, transcription, and rewriting to prevent blocking
 
-The key insight was using Apple MLX instead of PyTorch for inference. MLX is optimized for Apple Silicon's unified memory architecture—it eliminates the CPU→GPU memory copy overhead that makes PyTorch slow on Mac.
+The key insight was using Apple MLX instead of PyTorch for inference. MLX is optimized for Apple Silicon's unified memory architecture-it eliminates the CPU→GPU memory copy overhead that makes PyTorch slow on Mac.
 
 ## Key Decisions
 

@@ -58,7 +58,7 @@ export default function HomePage() {
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">•</span>
-            <span className="text-muted-foreground">Started hacking systems at 15 — wrote brute-force scripts to find vulnerabilities</span>
+            <span className="text-muted-foreground">Started hacking systems at 15 - wrote brute-force scripts to find vulnerabilities</span>
           </li>
           <li className="flex items-start gap-2">
             <span className="text-foreground">•</span>

@@ -26,7 +26,7 @@ const experiments = [
     id: '4',
     icon: Layers,
     title: 'Local-first AI pipelines on Apple Silicon',
-    description: 'Exploring what inference workloads are viable on consumer hardware. MLX is the unlock — unified memory changes everything.',
+    description: 'Exploring what inference workloads are viable on consumer hardware. MLX is the unlock - unified memory changes everything.',
     tags: ['ai', 'mlx'],
   },
   {

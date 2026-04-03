@@ -9,7 +9,7 @@ date: "2026-03-01"
 
 ## Overview
 
-Orqys is an AI-native engineering operations layer. It takes a ticket—an issue, a task, a feature request—and orchestrates multiple LLM agents across the software development lifecycle to produce a production-ready pull request. Not a code suggestion. A deployable PR.
+Orqys is an AI-native engineering operations layer. It takes a ticket-an issue, a task, a feature request-and orchestrates multiple LLM agents across the software development lifecycle to produce a production-ready pull request. Not a code suggestion. A deployable PR.
 
 ## Problem
 
@@ -35,10 +35,10 @@ Each agent operates on a shared context window but with scoped responsibilities.
 
 ## Challenges
 
-Context window management is the primary constraint. Real codebases have thousands of files—the system needs to retrieve just enough context for accurate code generation without blowing token limits. The retrieval strategy uses a combination of semantic search over embeddings and structural analysis (imports, call graphs) to build focused context windows.
+Context window management is the primary constraint. Real codebases have thousands of files-the system needs to retrieve just enough context for accurate code generation without blowing token limits. The retrieval strategy uses a combination of semantic search over embeddings and structural analysis (imports, call graphs) to build focused context windows.
 
 Another challenge: ensuring generated code actually compiles and passes tests. The review agent runs validation in a sandboxed environment before PR submission, but this adds latency and infrastructure complexity.
 
 ## Outcome
 
-Orqys represents a bet on agent-native software development. The goal isn't to replace engineers—it's to compress the mechanical parts of the job so more time goes to design, architecture, and the genuinely hard decisions.
+Orqys represents a bet on agent-native software development. The goal isn't to replace engineers-it's to compress the mechanical parts of the job so more time goes to design, architecture, and the genuinely hard decisions.
